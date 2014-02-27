@@ -1,4 +1,4 @@
-package abstract_classes;
+
 
 import java.util.Calendar;
 
@@ -13,6 +13,8 @@ public abstract class AbstractEvent
 	public abstract void setDates(Calendar dateEventual, Calendar dateCurrent, Calendar dateUrgent);
 	
 	public abstract void setComment(String comment);
+	
+	public abstract String getName();
 	
 	public abstract byte getPriority();
 	

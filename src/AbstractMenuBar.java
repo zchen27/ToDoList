@@ -1,7 +1,6 @@
-package abstract_classes;
-
 import java.awt.*;
 import javax.swing.*;
+
 public abstract class AbstractMenuBar extends JMenuBar{
 	AbstractStateInformation information;
 	JMenu closedItems,quit;

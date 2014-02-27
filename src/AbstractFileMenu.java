@@ -1,4 +1,3 @@
-package abstract_classes;
 
 import javax.swing.*;
 public abstract class AbstractFileMenu extends JMenu{

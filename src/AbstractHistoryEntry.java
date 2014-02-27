@@ -1,4 +1,3 @@
-package abstract_classes;
 
 import java.util.Calendar;
 
@@ -9,11 +8,11 @@ public abstract class AbstractHistoryEntry extends JFrame {
 	public String comment;
 	public byte oldPriority;
 	public byte newPriority;
-	public StateInformation info;
-	HistoryEntry(Calendar time, byte oldPriority, byte newPriority){
+	public AbstractStateInformation info;
+	AbstractHistoryEntry(Calendar time, byte oldPriority, byte newPriority){
 		
 	}
-	HistoryEntry(Calendar time, String initalComment){
+	AbstractHistoryEntry(Calendar time, String initalComment){
 		
 	}
 	public abstract String getComment();
