@@ -14,7 +14,7 @@ public abstract class AbstractEditActionItem extends JFrame {
 	private JCheckBox toEventualBox, toCurrentBox, toUrgentBox;
 	private JRadioButton urgent, current, eventual, inactive, completed;
 	private JButton comment, history, print;
-	StateInformation information;
+	AbstractStateInformation information;
 	
 	abstract void EditActionitem(); // Constructor
 	public abstract void priorityChange();
