@@ -2,6 +2,7 @@ import java.io.*;
 import java.lang.reflect.*;
 import javax.xml.*;
 import javax.xml.parsers.*;
+
 import org.w3c.dom.*;
 import org.xml.*;
 import org.xml.sax.*;
@@ -19,7 +20,31 @@ public class FileBackup extends AbstractFileBackup
 	{
 		// TODO FINISH THIS GOD DAMNED THING ALREADY
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-		DocumentBuilder db = dbf.newDocumentBuilder(); 
+		DocumentBuilder db;
+		try {
+			db = dbf.newDocumentBuilder();
+		} catch (ParserConfigurationException e3) {
+			// TODO Auto-generated catch block
+			e3.printStackTrace();
+		}
+		try
+		{
+			db = dbf.newDocumentBuilder();
+		}
+		catch (ParserConfigurationException e2)
+		{
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		try
+		{
+			db = dbf.newDocumentBuilder();
+		}
+		catch (ParserConfigurationException e1)
+		{
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} 
 		try
 		{
 			Document doc = db.parse(new File(location));
