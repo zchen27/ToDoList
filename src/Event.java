@@ -6,14 +6,17 @@ public class Event extends AbstractEvent
 	private Calendar dateE;
 	private Calendar dateC;
 	private Calendar dateU;
+	private AbstractHistory history;
 	private String comment;
 	private String name;
-	private byte priority = URGENT;
+	private byte priority;
 	
 	
 	public Event(String n)
 	{
 		name = n;
+		comment = "";
+		priority = URGENT;
 	}
 	
 	@Override
@@ -26,14 +29,14 @@ public class Event extends AbstractEvent
 	}
 
 	@Override
-	public void setComment(String nextcomment)
+	public void setComment(String newcomment)
 	{
 		// TODO Auto-generated method stub
-		if(nextcomment.length() == 0)
+		if(newcomment.length() == 0)
 		{
 			comment = "THIS COMMENT HAS BEEN DELETED";
 		}
-		comment = nextcomment;
+		comment = newcomment;
 	}
 
 	@Override
@@ -54,18 +57,23 @@ public class Event extends AbstractEvent
 	public Calendar[] getDates()
 	{
 		// TODO Auto-generated method stub
-		return null;
+		Calendar[] dates = new Calendar[3];
+		dates[0] = dateE;
+		dates[1] = dateC;
+		dates[2] = dateU;
+		return dates;
 	}
 
 	@Override
 	public AbstractHistory getHistory()
 	{
 		// TODO Auto-generated method stub
-		return null;
+		return history;
 	}
 
 	@Override
-	public String getName() {
+	public String getName()
+	{
 		// TODO Auto-generated method stub
 		return name;
 	}
