@@ -65,7 +65,7 @@ public class Event extends AbstractEvent
 	}
 
 	@Override
-	public AbstractHistory getHistory()
+	public History getHistory()
 	{
 		// TODO Auto-generated method stub
 		return history;
@@ -77,5 +77,10 @@ public class Event extends AbstractEvent
 		// TODO Auto-generated method stub
 		return name;
 	}
-
+	
+	
+	public String getComment()
+	{
+		return comment;
+	}
 }

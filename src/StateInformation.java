@@ -21,6 +21,7 @@ public class StateInformation extends AbstractStateInformation
 		return null;
 	}
 	
+	@Override
 	public void setBackUp(String newBackup)
 	{
 		synchronized(this)
