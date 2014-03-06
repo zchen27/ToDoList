@@ -6,7 +6,7 @@ public class Event extends AbstractEvent
 	private Calendar dateE;
 	private Calendar dateC;
 	private Calendar dateU;
-	private AbstractHistory history;
+	private History history;
 	private String comment;
 	private String name;
 	private byte priority;

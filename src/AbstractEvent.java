@@ -22,5 +22,5 @@ public abstract class AbstractEvent
 	
 	public abstract Calendar[] getDates();
 	
-	public abstract AbstractHistory getHistory();
+	public abstract History getHistory();
 }

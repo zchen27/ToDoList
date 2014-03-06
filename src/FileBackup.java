@@ -1,5 +1,6 @@
 import java.io.*;
 import java.lang.reflect.*;
+import java.text.*;
 import java.util.*;
 
 import javax.xml.*;
@@ -19,6 +20,12 @@ public class FileBackup extends AbstractFileBackup
 	 * Pre: None
 	 * Post: Current EventList is created at the indicated directory with a name
 	 */
+	
+	FileBackup(AbstractMainWindow window)
+	{
+		information = window.si;
+	}
+	
 	@Override
 	public void makeBackup(String location)
 	{
@@ -32,16 +39,43 @@ public class FileBackup extends AbstractFileBackup
 		{
 			db = dbf.newDocumentBuilder();
 			Document backup = db.parse(new File(location));
-			//Element event_list = new Element("event_list");
-			int i = 0;
+			
+			Element event_list = backup.createElement("event_list");
+			backup.appendChild(event_list);
+			
 			for(Event e: list)
 			{
+				String n = e.getName();
+				Calendar[] d = e.getDates();
+				String c = e.getComment();
+				History h = e.getHistory();
+				byte p = e.getPriority();
+				DateFormat format = new SimpleDateFormat("MMMM/DD/YYYY G 'at' HH:mm:ss z");
 				
-				String name = e.getName();
-				Calendar[] dates = e.getDates();
-				String comment = e.getComment();
-				byte Priority = e.getPriority();
+				Element event = backup.createElement("event");
+				event_list.appendChild(event);
 				
+				Attr name = backup.createAttribute("name");
+				name.setValue(n);
+				event.appendChild(name);
+				
+				Attr priority = backup.createAttribute("priority");
+				priority.setValue("" + p);
+				event.appendChild(priority);
+				
+				Attr to_eventual = backup.createAttribute("to_eventual");
+				to_eventual.setValue(format.format(d[0]));
+				event.appendChild(to_eventual);
+				
+				Attr to_current = backup.createAttribute("to_current");
+				to_current.setValue(format.format(d[1]));
+				event.appendChild(to_current);
+				
+				Attr to_urgent = backup.createAttribute("to_urgent");
+				to_urgent.setValue(format.format(d[2]));
+				event.appendChild(to_urgent);
+				
+				Element history = backup.createElement("history");
 			}
 			
 			
@@ -59,7 +93,6 @@ public class FileBackup extends AbstractFileBackup
 	public AbstractEventList loadBackup(String location) 
 	{
 		// TODO DO IT
-		
 		return null;
 	}
 	
