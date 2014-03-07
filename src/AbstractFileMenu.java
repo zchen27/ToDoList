@@ -1,6 +1,9 @@
+import java.awt.print.*;
+
 import javax.print.*;
 import javax.swing.*;
 public abstract class AbstractFileMenu extends JPopupMenu{
+	AbstractMainWindow mainWindow;
 	AbstractStateInformation information;
 	JMenuItem createBackup,restoreBackup,print;
 	
