@@ -15,7 +15,7 @@ import org.xml.sax.*;
 
 public class FileBackup extends AbstractFileBackup
 {
-	private AbstractMainWindow window;
+	private MainScreen window;
 	
 	/*
 	 * Creates backup at the location indicated with the list
@@ -23,7 +23,7 @@ public class FileBackup extends AbstractFileBackup
 	 * Post: Current EventList is created at the indicated directory with a name
 	 */
 	
-	FileBackup(AbstractMainWindow window)
+	FileBackup(MainScreen window)
 	{
 		this.window = window;
 	}
