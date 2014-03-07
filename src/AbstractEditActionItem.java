@@ -18,7 +18,6 @@ public abstract class AbstractEditActionItem extends JFrame {
 	
 	AbstractEditActionItem(int theEventIndex); // Constructor
 	public abstract void priorityChange();
-	public abstract void ungreyTextField();
 	public abstract void actionPerformed(ActionEvent e);
 	public abstract void viewComment();
 	public abstract void viewHistory();
