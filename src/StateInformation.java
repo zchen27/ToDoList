@@ -18,7 +18,7 @@ public class StateInformation extends AbstractStateInformation
 	public EventList getEventList()
 	{
 		// TODO Auto-generated method stub
-		return null;
+		return events;
 	}
 	
 	@Override

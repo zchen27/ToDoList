@@ -67,6 +67,7 @@ public class EventPanel extends AbstractEventPanel implements AdjustmentListener
 
 	public void update(Point mousePoint, boolean rightMouseClicked,
 			boolean leftMouseClicked) {
+		System.out.println(eventPanels.get(0).getY());
 		SubEventPanel mover=null;
 		if(leftMouseClicked&&mover==null){
 			SubEventPanel test=eventDragged(mousePoint);
@@ -74,7 +75,7 @@ public class EventPanel extends AbstractEventPanel implements AdjustmentListener
 				mover=test;
 			}
 		}else if(leftMouseClicked){
-			
+			movePanel(mover,mousePoint);
 		}
 		if(!leftMouseClicked){
 			mover=null;
@@ -94,7 +95,29 @@ public class EventPanel extends AbstractEventPanel implements AdjustmentListener
 		return null;
 	}
 	private void movePanel(SubEventPanel mover,Point mousePoint){
-		
+		for(int i=0;i<eventPanels.size()-1;i++){
+			SubEventPanel test=eventPanels.get(i);
+			SubEventPanel test2=eventPanels.get(i+1);
+			if(i==0&&mousePoint.y<test.getY()+test.getHeight()/2){
+				sort(mover,0);
+			}else if(i==eventPanels.size()-2&&mousePoint.y>test2.getY()+test2.getHeight()/2){
+				sort(mover,i+1);
+			}else if(mousePoint.y>test.getY()+test.getHeight()/2&&
+						mousePoint.y<test2.getY()+test2.getHeight()/2){
+				sort(mover,i);
+			}
+		}
+	}
+	private void sort(SubEventPanel mover, int newSpot){
+		ArrayList<SubEventPanel> newList=new ArrayList<SubEventPanel>();
+		for(int i=0;i<newSpot;i++){
+			newList.add(eventPanels.get(i));
+		}
+		newList.add(mover);
+		for(int i=newSpot+1;i<eventPanels.size();i++){
+			newList.add(eventPanels.get(i));
+		}
+		eventPanels=newList;
 	}
 	public void draw() {
 		repaint();

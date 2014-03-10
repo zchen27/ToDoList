@@ -16,7 +16,7 @@ public abstract class AbstractEditActionItem extends JFrame {
 	private JButton comment, history, print;
 	AbstractStateInformation information;
 	
-	AbstractEditActionItem(int theEventIndex); // Constructor
+	AbstractEditActionItem(int theEventIndex, StateInformation theInformation); // Constructor
 	public abstract void priorityChange();
 	public abstract void actionPerformed(ActionEvent e);
 	public abstract void viewComment();

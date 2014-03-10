@@ -5,7 +5,9 @@ import java.util.*;
 
 import javax.xml.*;
 import javax.xml.parsers.*;
+import javax.xml.transform.*;
 import javax.xml.transform.dom.*;
+import javax.xml.transform.stream.*;
 
 import org.w3c.dom.*;
 import org.xml.*;
@@ -13,7 +15,7 @@ import org.xml.sax.*;
 
 public class FileBackup extends AbstractFileBackup
 {
-	private StateInformation information;
+	private MainScreen window;
 	
 	/*
 	 * Creates backup at the location indicated with the list
@@ -21,9 +23,9 @@ public class FileBackup extends AbstractFileBackup
 	 * Post: Current EventList is created at the indicated directory with a name
 	 */
 	
-	FileBackup(AbstractMainWindow window)
+	FileBackup(MainScreen window)
 	{
-		information = window.si;
+		this.window = window;
 	}
 	
 	@Override
@@ -32,9 +34,9 @@ public class FileBackup extends AbstractFileBackup
 		// TODO FINISH THIS GOD DAMNED THING ALREADY
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		DocumentBuilder db;
-		EventList list = (EventList) information.getEventList();
+		EventList list = (EventList) window.si.getEventList();
 		
-		//Nested Try-Catch. Ask not why.
+		//<MAGIC>
 		try 
 		{
 			db = dbf.newDocumentBuilder();
@@ -75,17 +77,39 @@ public class FileBackup extends AbstractFileBackup
 				to_urgent.setValue(format.format(d[2]));
 				event.appendChild(to_urgent);
 				
+				Attr comment = backup.createAttribute("comment");
+				comment.setValue(c);
+				event.appendChild(comment);
+				
 				Element history = backup.createElement("history");
+				event.appendChild(history);
+				
+				for(HistoryEntry he: h)
+				{
+					Attr entry = backup.createAttribute("entry");
+					history.appendChild(entry);
+					
+					Attr time = backup.createAttribute("time");
+					time.setValue(format.format(he.getTime()));
+					entry.appendChild(time);
+					
+					Attr entryComment = backup.createAttribute("entry_comment");
+					entryComment.setValue(he.getComment());
+					entry.appendChild(entryComment);
+				}
 			}
 			
-			
+			TransformerFactory transformerFactory = TransformerFactory.newInstance();
+			Transformer transformer = transformerFactory.newTransformer();
+			DOMSource source = new DOMSource(backup);
+			StreamResult result = new StreamResult(new File(location));
 		}
 		catch (Exception e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		
 		}
+		//</MAGIC>
 
 	}
 
@@ -93,9 +117,17 @@ public class FileBackup extends AbstractFileBackup
 	public AbstractEventList loadBackup(String location) 
 	{
 		// TODO DO IT
+		try
+		{
+			File backup = new File(location);
+			
+		}
+		catch (Exception e)
+		{
+			
+		}
+		
 		return null;
 	}
-	
-	
 
 }
