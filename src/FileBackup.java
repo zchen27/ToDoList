@@ -51,7 +51,7 @@ public class FileBackup extends AbstractFileBackup
 				Calendar[] d = e.getDates();
 				String c = e.getComment();
 				History h = e.getHistory();
-				byte p = e.getPriority();
+				int p = e.getPriority();
 				DateFormat format = new SimpleDateFormat("MMMM/DD/YYYY G 'at' HH:mm:ss z");
 				
 				Element event = backup.createElement("event");
@@ -117,10 +117,44 @@ public class FileBackup extends AbstractFileBackup
 	public AbstractEventList loadBackup(String location) 
 	{
 		// TODO DO IT
+
 		try
 		{
-			File backup = new File(location);
+			File file = new File(location);
+			DateFormat format = new SimpleDateFormat("MMMM/DD/YYYY G 'at' HH:mm:ss z");
+			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+			DocumentBuilder db = dbf.newDocumentBuilder();
+			Document backup = db.parse(file);
 			
+			backup.getDocumentElement().normalize();
+			
+			NodeList nlist = backup.getElementsByTagName("event");
+			
+			EventList list = new EventList();
+			
+			for(int i = 0; i < nlist.getLength(); i++)
+			{
+				Node node = nlist.item(i);
+				
+				if(node.getNodeType() == Node.ELEMENT_NODE)
+				{
+					Element element = (Element) node;
+					
+					String name = element.getAttribute("name");
+					int priority = Integer.parseInt(element.getAttribute("priority"));
+					Calendar date_eventual = Calendar.getInstance();
+					Calendar date_current = Calendar.getInstance();
+					Calendar date_urgent = Calendar.getInstance();
+					date_eventual.setTime(format.parse(element.getAttribute("date_eventual")));
+					date_current.setTime(format.parse(element.getAttribute("date_current")));
+					date_urgent.setTime(format.parse(element.getAttribute("date_urgent")));
+					String comment = element.getAttribute("comment");
+					
+					NodeList hlist = backup.getElementsByTagName("entry");
+					History history = new History();
+					
+				}
+			}
 		}
 		catch (Exception e)
 		{

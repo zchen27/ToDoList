@@ -83,4 +83,13 @@ public class Event extends AbstractEvent
 	{
 		return comment;
 	}
+
+	@Override
+	public void setHistory(History history)
+	{
+		// TODO Auto-generated method stub
+		this.history = history;
+	}
+
+
 }
