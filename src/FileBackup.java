@@ -151,8 +151,20 @@ public class FileBackup extends AbstractFileBackup
 					date_urgent.setTime(format.parse(element.getAttribute("date_urgent")));
 					String comment = element.getAttribute("comment");
 					
-					Node history = element.getFirstChild();
+					Element historyE = (Element) element.getFirstChild();
+					NodeList elist = historyE.getElementsByTagName("entry");
 					
+					History history = new History();
+					
+					for(int j = 0; j < elist.getLength(); j++)
+					{
+						Node enode = elist.item(i);
+						
+						if(node.getNodeType() == Node.ELEMENT_NODE)
+						{
+							
+						}
+					}
 				}
 			}
 		}
