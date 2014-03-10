@@ -3,9 +3,13 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
 public class MenuBar extends AbstractMenuBar implements ActionListener,PopupMenuListener{
+	AbstractMainWindow mainWindow;
 	
 	public void draw() {
-		
+		mainWindow.add(this);
+		mainWindow.repaint();
+		repaint();
+		setVisible(true);
 	}
 	
 	public void update(Point mousePoint, boolean rightMouseClicked,	boolean leftMouseClicked) {
@@ -25,7 +29,8 @@ public class MenuBar extends AbstractMenuBar implements ActionListener,PopupMenu
 		}
 	}
 
-	public MenuBar(){
+	public MenuBar(AbstractMainWindow window){
+		mainWindow=window;
 		fileItem=new JButton("File");
 		fileItem.addActionListener(this);
 		add(fileItem);
@@ -42,7 +47,7 @@ public class MenuBar extends AbstractMenuBar implements ActionListener,PopupMenu
 	public static void main(String[] args){
 		JFrame frame=new JFrame();
 		frame.setMinimumSize(new Dimension(400,100));
-		frame.add(new MenuBar());
+		frame.add(new MenuBar(new MainWindow("To Do")));
 		frame.setVisible(true);
 	}
 

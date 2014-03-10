@@ -22,7 +22,7 @@ public class FileMenu extends AbstractFileMenu implements ActionListener{
 		} else if (event.getSource().equals(printItem)){
 			try {
 				print();
-			} catch (PrintException e) {
+			} catch (PrinterException e) {
 				System.out.print(e.getLocalizedMessage());
 			}
 		}
@@ -47,15 +47,16 @@ public class FileMenu extends AbstractFileMenu implements ActionListener{
 	}
 
 	
-	public void print() throws PrintException{
+	public void print() throws PrinterException{
 		if (printWindow.printDialog()){
 			try {
-				PrintService printer=printWindow.getPrintService();
+				/*PrintService printer=printWindow.getPrintService();
 				DocPrintJob docJob=printer.createPrintJob();
 				DocFlavor.STRING flavor=new DocFlavor.STRING("RFC6015");
 				SimpleDoc paper=new SimpleDoc("",flavor,new HashDocAttributeSet());
-				docJob.print(paper,new HashPrintRequestAttributeSet());
-			} catch (PrintException p){
+				docJob.print(paper,new HashPrintRequestAttributeSet());*/
+				printWindow.print(new HashPrintRequestAttributeSet());
+			} catch (PrinterException p){
 				System.out.println(p.getLocalizedMessage());
 			}
 		}
@@ -85,19 +86,4 @@ public class FileMenu extends AbstractFileMenu implements ActionListener{
 		load.setApproveButtonText("Load");
 		load.setFileFilter(backupFilter);
 	}
-	
-	public static void main(String[] args) throws PrintException{
-		FileMenu test=new FileMenu(new MainWindow("To Do"));
-		JFrame frame=new JFrame("test");
-		JPanel panel=new JPanel();
-		panel.add(test);
-		frame.setContentPane(panel);
-		frame.setMinimumSize(new Dimension(100,100));
-		frame.setVisible(true);
-		test.show(panel,0,0);
-	}
-
-
-	
-	
 }

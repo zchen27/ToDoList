@@ -11,5 +11,5 @@ public abstract class AbstractFileMenu extends JPopupMenu{
 	
 	public abstract void restoreBackup();
 	
-	public abstract void print() throws PrintException;
+	public abstract void print() throws PrinterException;
 }
