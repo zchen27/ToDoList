@@ -9,7 +9,7 @@ public class Event extends AbstractEvent
 	private History history;
 	private String comment;
 	private String name;
-	private byte priority;
+	private int priority;
 	
 	
 	public Event(String n)
@@ -40,17 +40,10 @@ public class Event extends AbstractEvent
 	}
 
 	@Override
-	public byte getPriority()
+	public int getPriority()
 	{
 		// TODO Auto-generated method stub
 		return priority;
-	}
-
-	@Override
-	public void setPriority(byte newPriority)
-	{
-		// TODO Auto-generated method stub
-		priority = newPriority;
 	}
 
 	@Override
@@ -89,6 +82,13 @@ public class Event extends AbstractEvent
 	{
 		// TODO Auto-generated method stub
 		this.history = history;
+	}
+
+	@Override
+	public void setPriority(int newPriority)
+	{
+		priority = newPriority;
+		
 	}
 
 
