@@ -29,6 +29,10 @@ public class FileBackup extends AbstractFileBackup
 		this.window = window;
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see AbstractFileBackup#makeBackup(java.lang.String)
+	 */
 	@Override
 	public void makeBackup(String location)
 	{
@@ -87,7 +91,7 @@ public class FileBackup extends AbstractFileBackup
 				
 				for(HistoryEntry he: h)
 				{
-					Attr entry = backup.createAttribute("entry");
+					Element entry = backup.createElement("entry");
 					history.appendChild(entry);
 					
 					Attr time = backup.createAttribute("time");
@@ -114,11 +118,16 @@ public class FileBackup extends AbstractFileBackup
 
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see AbstractFileBackup#loadBackup(java.lang.String)
+	 */
 	@Override
-	public AbstractEventList loadBackup(String location) 
+	public EventList loadBackup(String location) 
 	{
 		// TODO DO IT
-
+		EventList list = new EventList();
+		
 		try
 		{
 			File file = new File(location);
@@ -131,7 +140,7 @@ public class FileBackup extends AbstractFileBackup
 			
 			NodeList nlist = backup.getElementsByTagName("event");
 			
-			EventList list = new EventList();
+			
 			
 			for(int i = 0; i < nlist.getLength(); i++)
 			{
@@ -162,9 +171,22 @@ public class FileBackup extends AbstractFileBackup
 						
 						if(node.getNodeType() == Node.ELEMENT_NODE)
 						{
-							
+							Element eElement = (Element) enode;
+							Calendar time = Calendar.getInstance();
+							time.setTime(format.parse(eElement.getAttribute("time")));
+							String entry_comment = eElement.getAttribute(("entry_comment"));
+							HistoryEntry he = new HistoryEntry(time, entry_comment);
+							history.add(he);
 						}
 					}
+					
+					Event e = new Event(name);
+					e.setPriority(priority);
+					e.setComment(comment);
+					e.setDates(date_eventual, date_current, date_urgent);
+					e.setHistory(history);
+					
+					list.add(e);
 				}
 			}
 		}
@@ -173,7 +195,7 @@ public class FileBackup extends AbstractFileBackup
 			
 		}
 		
-		return null;
+		return list;
 	}
 
 }
