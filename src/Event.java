@@ -6,6 +6,7 @@ public class Event extends AbstractEvent
 	private Calendar dateE;
 	private Calendar dateC;
 	private Calendar dateU;
+	private Calendar dateCompleted = null;
 	private History history;
 	private String comment;
 	private String name;
@@ -88,8 +89,21 @@ public class Event extends AbstractEvent
 	public void setPriority(int newPriority)
 	{
 		priority = newPriority;
+		Calendar ct = Calendar.getInstance();
+		ct.setTimeInMillis(System.currentTimeMillis());
 		
 	}
-
+	
+	public void complete()
+	{
+		Calendar ct = Calendar.getInstance();
+		ct.setTimeInMillis(System.currentTimeMillis());
+		dateCompleted = ct;
+	}
+	
+	public Calendar dateCompleted()
+	{
+		return dateCompleted;
+	}
 
 }

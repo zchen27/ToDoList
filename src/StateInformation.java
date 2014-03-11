@@ -2,6 +2,7 @@
 public class StateInformation extends AbstractStateInformation
 {
 	private EventList events;
+	private EventList completed;
 	private String lastBackup;
 	
 	StateInformation(EventList e, String s)
@@ -18,6 +19,10 @@ public class StateInformation extends AbstractStateInformation
 		synchronized(this)
 		{
 			events = (EventList) newevents;
+			for(int i = 0; i < events.size(); i++)
+			{
+				if(events.get(i).)
+			}
 		}
 	}
 
