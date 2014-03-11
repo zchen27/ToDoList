@@ -10,9 +10,10 @@ import javax.print.attribute.*;
 public class FileMenu extends AbstractFileMenu implements ActionListener{
 	JFileChooser save,load;
 	PrinterJob printWindow;
-	FileNameExtensionFilter backupFilter;
+	FileNameExtensionFilter backupFilter,saveFilter;
 	AbstractFileBackup fileBackup;
 	JMenuItem printItem,saveItem,loadItem;
+	AbstractMainWindow window;
 	
 	public void actionPerformed(ActionEvent event) {
 		if (event.getSource().equals(saveItem)){
@@ -29,7 +30,7 @@ public class FileMenu extends AbstractFileMenu implements ActionListener{
 	}
 	
 	public void createBackup() {
-		int returnVal=save.showOpenDialog(this);
+		int returnVal=save.showSaveDialog(this);
 		if (returnVal==JFileChooser.APPROVE_OPTION){
 			File backup=save.getSelectedFile();
 			fileBackup.makeBackup(backup.getAbsolutePath());
@@ -64,6 +65,8 @@ public class FileMenu extends AbstractFileMenu implements ActionListener{
 	}
 	
 	public FileMenu(AbstractMainWindow window){
+		mainWindow=window;
+		fileBackup=new FileBackup(mainWindow);
 		saveItem=new JMenuItem("Create Backup");
 		saveItem.addActionListener(this);
 		add(saveItem);
@@ -74,12 +77,13 @@ public class FileMenu extends AbstractFileMenu implements ActionListener{
 		printItem.addActionListener(this);
 		add(printItem);
 		printWindow=PrinterJob.getPrinterJob();
+		saveFilter=new FileNameExtensionFilter("Folders"," ");
 		backupFilter=new FileNameExtensionFilter("XML Files",".xml");
 		save=new JFileChooser("Create Backup");
 		save.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		save.setApproveButtonMnemonic(JFileChooser.SAVE_DIALOG);
 		save.setApproveButtonText("Save");
-		save.setFileFilter(backupFilter);
+		save.setFileFilter(saveFilter);
 		load=new JFileChooser("Restore Backup");
 		load.setFileSelectionMode(JFileChooser.FILES_ONLY);
 		load.setApproveButtonMnemonic(JFileChooser.OPEN_DIALOG);

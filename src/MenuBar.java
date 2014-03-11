@@ -6,7 +6,6 @@ public class MenuBar extends AbstractMenuBar implements ActionListener,PopupMenu
 	AbstractMainWindow mainWindow;
 	
 	public void draw() {
-		mainWindow.add(this);
 		mainWindow.repaint();
 		repaint();
 		setVisible(true);
@@ -31,11 +30,13 @@ public class MenuBar extends AbstractMenuBar implements ActionListener,PopupMenu
 
 	public MenuBar(AbstractMainWindow window){
 		mainWindow=window;
+		draw();
 		fileItem=new JButton("File");
 		fileItem.addActionListener(this);
 		add(fileItem);
 		file=new FileMenu(new MainWindow("To Do"));
 		add(file);
+		fileItem.setComponentPopupMenu(file);
 		closedItems=new JButton("Closed Action Items");
 		closedItems.addActionListener(this);
 		add(closedItems);
