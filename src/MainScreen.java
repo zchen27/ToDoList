@@ -18,29 +18,37 @@ public class MainScreen extends AbstractMainWindow{
 	private AbstractEventPanel eventPanel;
 	MainScreen(){
 		super("To Do List");
+		setUp();
+		//addMenuBar();
+		addEventPanel();
+		setVisible(true);
+		
+		//run();	
+	}
+	private void setUp(){
 		contentPane=new JPanel();
+		setContentPane(contentPane);
+		contentPane.setLayout(new BoxLayout(contentPane,BoxLayout.Y_AXIS));
 		setSize(1200,800);
 		setLocation(50,50);
 		setResizable(false);
 		addMouseListener(this);
 		addKeyListener(this);
-		setContentPane(contentPane);
-		contentPane.setLayout(new BoxLayout(contentPane,BoxLayout.Y_AXIS));
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+	private void addMenuBar(){
+		menuBar=new MenuBar(this);
+	}
+	private void addEventPanel(){
 		eventPanel=new EventPanel(this);
 		contentPane.add(eventPanel);
-		components.add(new EventPanel(this));
-		//pack();
-		setVisible(true);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		run();
-		
-		
+		repaint();
 	}
 	public void mouseClicked(MouseEvent arg0) {
-		if(arg0.equals(MouseEvent.BUTTON1)){
+		if(arg0.getButton()==MouseEvent.BUTTON1){
 			leftClick=true;
 		}
-		if(arg0.equals(MouseEvent.BUTTON2)){
+		if(arg0.getButton()==MouseEvent.BUTTON3){
 			rightClick=true;
 		}
 		mousePoint=arg0.getPoint();
@@ -67,7 +75,6 @@ public class MainScreen extends AbstractMainWindow{
 	public void load() {
 		//load(si.lastBackup());
 	}
-	
 	public void load(String fileAddress) {
 		//si.FileBackup.loadBackup(fileAddress);
 	}
@@ -76,7 +83,6 @@ public class MainScreen extends AbstractMainWindow{
 			((EventPanel) components.get(i)).update(mousePoint,rightClick,leftClick);
 		}
 	}
-
 	public void draw() {
 		for(int i=0;i<components.size();i++){
 			((EventPanel) components.get(i)).draw();
@@ -88,7 +94,6 @@ public class MainScreen extends AbstractMainWindow{
 	public void addComponent(JComponent c) {
 		
 	}
-
 	public void removeComponent(JComponent c) {
 		
 	}
