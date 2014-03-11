@@ -4,6 +4,13 @@ public class StateInformation extends AbstractStateInformation
 	private EventList events;
 	private String lastBackup;
 	
+	StateInformation(EventList e, String s)
+	{
+		events = e;
+		lastBackup = s;
+	}
+	
+	
 	@Override
 	public void updateEventList(AbstractEventList newevents)
 	{
