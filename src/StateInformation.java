@@ -27,11 +27,39 @@ public class StateInformation extends AbstractStateInformation
 				}
 			}
 			
-			for(int j = 0; j < completed.size(); j++)
+			completed = sort(completed);
+		}
+	}
+	
+	private EventList sort(EventList list)
+	{
+		if (list.size() < 1)
+		{
+			return list;
+		}
+		
+		Event pivot = list.remove(list.size() / 2);
+		EventList before = new EventList();
+		EventList after = new EventList();
+		
+		for (int i = 0; i < list.size(); i++)
+		{
+			if (list.get(i).dateCompleted().compareTo(pivot.dateCompleted()) < 0)
 			{
-				
+				before.add(list.remove(i));
+			}
+			else if (list.get(i).dateCompleted().compareTo(pivot.dateCompleted()) > 0)
+			{
+				after.add(list.remove(i));
 			}
 		}
+		
+		EventList sorted = new EventList();
+		sorted.addAll(0, sort(after));
+		sorted.add(pivot);
+		sorted.addAll(sorted.size() - 1, before);
+		
+		return sorted;
 	}
 
 	@Override
