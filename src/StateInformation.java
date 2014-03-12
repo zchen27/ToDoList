@@ -21,7 +21,15 @@ public class StateInformation extends AbstractStateInformation
 			events = (EventList) newevents;
 			for(int i = 0; i < events.size(); i++)
 			{
-				if(events.get(i).)
+				if(events.get(i).dateCompleted() != null)
+				{
+					completed.add(events.remove(i));
+				}
+			}
+			
+			for(int j = 0; j < completed.size(); j++)
+			{
+				
 			}
 		}
 	}
