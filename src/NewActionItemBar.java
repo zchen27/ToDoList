@@ -43,7 +43,7 @@ public class NewActionItemBar extends JPanel implements KeyListener{
 	public void update(){
 		eventName=newActionItemBox.getText();
 		Event e = new Event(eventName);
-		mainScreen.stateInformation.getEventList().addEvent(e);
+		MainScreen.si.getEventList().add(e);
 		//System.out.println(eventName);
 		newActionItemBox.setText("");
 	}

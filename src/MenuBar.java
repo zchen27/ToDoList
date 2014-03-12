@@ -34,7 +34,7 @@ public class MenuBar extends AbstractMenuBar implements ActionListener,PopupMenu
 		fileItem=new JButton("File");
 		fileItem.addActionListener(this);
 		add(fileItem);
-		file=new FileMenu(new MainWindow("To Do"));
+		file=new FileMenu(new MainScreen());
 		add(file);
 		fileItem.setComponentPopupMenu(file);
 		closedItems=new JButton("Closed Action Items");
@@ -45,12 +45,6 @@ public class MenuBar extends AbstractMenuBar implements ActionListener,PopupMenu
 		add(quit);
 	}
 	
-	public static void main(String[] args){
-		JFrame frame=new JFrame();
-		frame.setMinimumSize(new Dimension(400,100));
-		frame.add(new MenuBar(new MainWindow("To Do")));
-		frame.setVisible(true);
-	}
 
 	public void popupMenuCanceled(PopupMenuEvent e) {
 		

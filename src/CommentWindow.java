@@ -27,7 +27,7 @@ public class CommentWindow extends JFrame implements ActionListener{
 		super(title);
 		eventIndexNum=eventIndex;
 
-		eventComment= mainScreen.stateInformation.getEventList().get(eventIndexNum).getComment(eventComment);
+		eventComment= mainScreen.si.getEventList().get(eventIndexNum).getComment();
 
 		contentPane= new JPanel();
 		contentPane.setLayout(new BoxLayout(contentPane,BoxLayout.PAGE_AXIS));
@@ -74,12 +74,12 @@ public class CommentWindow extends JFrame implements ActionListener{
 	}
 	void commit(String comment){
 		eventComment = comment;
-		mainScreen.stateInformation.getEventList().get(eventIndexNum).setComment(eventComment);
+		MainScreen.si.getEventList().get(eventIndexNum).setComment(eventComment);
 		this.dispose();
 	}
 	void delete(){
 		eventComment = "";
-		mainScreen.stateInformation.getEventList().get(eventIndexNum).setComment(eventComment);
+		MainScreen.si.getEventList().get(eventIndexNum).setComment(eventComment);
 		this.dispose();
 	}
 }
