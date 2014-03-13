@@ -1,25 +1,20 @@
 import java.util.Calendar;
 
 
-public class HistoryEntry extends AbstractHistoryEntry {
+public class historyEntry {
 	public Calendar time;
 	public String comment;
 	public byte oldPriority;
 	public byte newPriority;
 	public StateInformation info;
-	
-	HistoryEntry(Calendar inTime, byte oldPriority, byte newPriority){
-		super(inTime, oldPriority, newPriority);
+	historyEntry(Calendar inTime, byte oldPriority, byte newPriority){
 		time=inTime;
 		this.oldPriority = oldPriority;
 		this.newPriority = newPriority;
 	}
-	
-	HistoryEntry(Calendar inTime, String initialComment){
-		super(inTime, initialComment);
+	historyEntry(Calendar inTime, String initalComment){
 		time=inTime;
-		comment= initialComment;
-		
+		comment= initalComment;
 	}
 	public String getComment(){
 		return comment;
