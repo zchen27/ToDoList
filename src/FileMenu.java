@@ -8,12 +8,12 @@ import javax.swing.filechooser.*;
 import javax.print.*;
 import javax.print.attribute.*;
 public class FileMenu extends AbstractFileMenu implements ActionListener{
-	JFileChooser save,load;
-	PrinterJob printWindow;
-	FileNameExtensionFilter backupFilter,saveFilter;
-	AbstractFileBackup fileBackup;
-	JMenuItem printItem,saveItem,loadItem;
-	AbstractMainWindow window;
+	public JFileChooser save,load;
+	public PrinterJob printWindow;
+	public FileNameExtensionFilter backupFilter,saveFilter;
+	public AbstractFileBackup fileBackup;
+	public JMenuItem printItem,saveItem,loadItem;
+	public MainScreen mainWindow;
 	
 	public void actionPerformed(ActionEvent event) {
 		if (event.getSource().equals(saveItem)){
@@ -43,28 +43,16 @@ public class FileMenu extends AbstractFileMenu implements ActionListener{
 		if (returnVal==JFileChooser.APPROVE_OPTION){
 			File backup=load.getSelectedFile();
 			AbstractEventList list=fileBackup.loadBackup(backup.getAbsolutePath());
-			//Find a way to load the EventList onto the main menu
 		}
 	}
 
 	
 	public void print() throws PrinterException{
-		if (printWindow.printDialog()){
-			try {
-				/*PrintService printer=printWindow.getPrintService();
-				DocPrintJob docJob=printer.createPrintJob();
-				DocFlavor.STRING flavor=new DocFlavor.STRING("RFC6015");
-				SimpleDoc paper=new SimpleDoc("",flavor,new HashDocAttributeSet());
-				docJob.print(paper,new HashPrintRequestAttributeSet());*/
-				printWindow.print(new HashPrintRequestAttributeSet());
-			} catch (PrinterException p){
-				System.out.println(p.getLocalizedMessage());
-			}
-		}
-		
+		Print printer=new Print(mainWindow,mainWindow.getContentPane());
+		printer.print(getGraphics(),new PageFormat(),0);
 	}
 	
-	public FileMenu(AbstractMainWindow window){
+	public FileMenu(MainScreen window){
 		mainWindow=window;
 		fileBackup=new FileBackup(mainWindow);
 		saveItem=new JMenuItem("Create Backup");

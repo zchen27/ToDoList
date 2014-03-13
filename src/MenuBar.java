@@ -3,7 +3,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
 public class MenuBar extends AbstractMenuBar implements ActionListener,PopupMenuListener{
-	AbstractMainWindow mainWindow;
+	MainScreen mainWindow;
 	
 	public void draw() {
 		mainWindow.repaint();
@@ -28,7 +28,7 @@ public class MenuBar extends AbstractMenuBar implements ActionListener,PopupMenu
 		}
 	}
 
-	public MenuBar(AbstractMainWindow window){
+	public MenuBar(MainScreen window){
 		mainWindow=window;
 		draw();
 		fileItem=new JButton("File");
