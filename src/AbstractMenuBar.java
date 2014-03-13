@@ -3,7 +3,7 @@ import javax.swing.*;
 
 public abstract class AbstractMenuBar extends JMenuBar{
 	AbstractStateInformation information;
-	JButton closedItems,quit,fileItem;
+	JMenuItem closedItems,quit,fileItem;
 	AbstractFileMenu file;
 	
 	public abstract void update(Point mousePoint,boolean rightMouseClicked,boolean leftMouseClicked);

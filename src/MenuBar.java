@@ -31,17 +31,20 @@ public class MenuBar extends AbstractMenuBar implements ActionListener,PopupMenu
 	public MenuBar(MainScreen window){
 		mainWindow=window;
 		draw();
-		fileItem=new JButton("File");
+		fileItem=new JMenuItem("File");
 		fileItem.addActionListener(this);
+		fileItem.setMinimumSize(new Dimension(100,50));
 		add(fileItem);
 		file=new FileMenu(new MainScreen());
 		add(file);
 		fileItem.setComponentPopupMenu(file);
-		closedItems=new JButton("Closed Action Items");
+		closedItems=new JMenuItem("Closed Action Items");
 		closedItems.addActionListener(this);
+		closedItems.setMinimumSize(new Dimension(100,50));
 		add(closedItems);
-		quit=new JButton("Quit");
+		quit=new JMenuItem("Quit");
 		quit.addActionListener(this);
+		quit.setMinimumSize(new Dimension(100,50));
 		add(quit);
 	}
 	
