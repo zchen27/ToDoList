@@ -5,7 +5,7 @@ import java.util.*;
 import javax.swing.*;
 
 
-public class MainScreen extends AbstractMainWindow{
+public class MainScreen extends JFrame implements MouseListener, KeyListener{
 	public static AbstractStateInformation si;
 	private boolean leftClick;
 	private boolean rightClick;
