@@ -13,7 +13,7 @@ public class StateInformation extends AbstractStateInformation
 	
 	
 	@Override
-	public void updateEventList(AbstractEventList newevents)
+	public void updateEventList(EventList newevents)
 	{
 		// TODO Auto-generated method stub
 		synchronized(this)
@@ -45,7 +45,7 @@ public class StateInformation extends AbstractStateInformation
 		for (int i = 0; i < list.size(); i++)
 		{
 			if (list.get(i).dateCompleted().compareTo(pivot.dateCompleted()) < 0)
-			{
+			{              
 				before.add(list.remove(i));
 			}
 			else if (list.get(i).dateCompleted().compareTo(pivot.dateCompleted()) > 0)

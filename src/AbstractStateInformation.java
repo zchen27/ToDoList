@@ -1,7 +1,7 @@
 
 public abstract class AbstractStateInformation
 {	
-	public abstract void updateEventList(AbstractEventList newevents);
+	public abstract void updateEventList(EventList newevents);
 	
 	public abstract EventList getEventList();
 	
