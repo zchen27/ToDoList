@@ -1,9 +1,11 @@
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.TextArea;
+import java.awt.TextComponent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.AdjustmentEvent;
@@ -26,15 +28,13 @@ import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 
 public class EventPanel extends AbstractEventPanel implements MouseListener, ActionListener {
-	private JScrollBar scrollBar;
 	private	MainScreen mainWindow;
 	private ArrayList<String> events;
-	private JScrollPane scrollPane;
-	private JTextArea textArea;
 	private ArrayList<SubEventPanel> eventPanels;
 	private JPanel panel;
 	private Point mouse;
 	private JPopupMenu popup;
+	private SubEventPanel mover;
 	//JScrollPane
 	EventPanel(MainScreen mw) {
 		mainWindow=mw;
@@ -43,10 +43,13 @@ public class EventPanel extends AbstractEventPanel implements MouseListener, Act
 		panel.setLayout(new GridLayout(0,2));
 		addMouseListener(this);
 		popup=new JPopupMenu();
-		JMenuItem menuItem = new JMenuItem("A popup menu item");
+		JMenuItem menuItem = new JMenuItem("Delete Item");
 	    menuItem.addActionListener(this);
 	    popup.add(menuItem);
-	    menuItem = new JMenuItem("Another popup menu item");
+	    menuItem = new JMenuItem("Complete Item");
+	    menuItem.addActionListener(this);
+	    popup.add(menuItem);
+	    menuItem = new JMenuItem("Edit Item");
 	    menuItem.addActionListener(this);
 	    popup.add(menuItem);
 	    MouseListener popupListener = new PopupListener();
@@ -60,6 +63,7 @@ public class EventPanel extends AbstractEventPanel implements MouseListener, Act
 			panel.add(eventPanels.get(i));
 		}
 		setViewportView(panel);
+	
 		
 		
 	}
@@ -107,15 +111,24 @@ public class EventPanel extends AbstractEventPanel implements MouseListener, Act
 		}
 	}
 	private void sort(SubEventPanel mover, int newSpot){
+		System.out.println("test"+newSpot);
 		ArrayList<SubEventPanel> newList=new ArrayList<SubEventPanel>();
 		for(int i=0;i<newSpot;i++){
-			newList.add(eventPanels.get(i));
+			if(eventPanels.get(i)!=mover){
+				newList.add(eventPanels.get(i));
+			}
 		}
 		newList.add(mover);
 		for(int i=newSpot+1;i<eventPanels.size();i++){
 			newList.add(eventPanels.get(i));
 		}
 		eventPanels=newList;
+		panel.removeAll();
+		for(int i=0;i<eventPanels.size();i++){
+			panel.add(new JPanel());
+			panel.add(eventPanels.get(i));
+		}
+		repaint();
 	}
 	public void draw() {
 		repaint();
@@ -129,20 +142,7 @@ public class EventPanel extends AbstractEventPanel implements MouseListener, Act
 		}
 	}
 	public void mouseClicked(MouseEvent arg0) {
-		mouse=arg0.getPoint();
-		if(arg0.getButton()==MouseEvent.BUTTON3){
-			popup=new JPopupMenu();
-			JMenuItem menuItem = new JMenuItem("A popup menu item");
-		    menuItem.addActionListener(this);
-		    popup.add(menuItem);
-		    menuItem = new JMenuItem("Another popup menu item");
-		    menuItem.addActionListener(this);
-		    popup.add(menuItem);
-		    MouseListener popupListener = new PopupListener();
-		    this.addMouseListener(popupListener);
-			//RightClickMenu popup= new RightClickMenu(this);
-			//popup.setLocation(mouse);
-		}
+		
 	}
 	private class PopupListener extends MouseAdapter {
 	    public void mousePressed(MouseEvent e) {
@@ -160,16 +160,6 @@ public class EventPanel extends AbstractEventPanel implements MouseListener, Act
 	        }
 	    }
 	}
-	private class RightClickMenu extends JPanel{
-		RightClickMenu(EventPanel ep){
-			System.out.println("test");
-			setSize(100,50);
-			JMenuItem item1=new JMenuItem("Item");
-			add(item1);
-			setVisible(true);
-			
-		}
-	}
 
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
@@ -185,13 +175,24 @@ public class EventPanel extends AbstractEventPanel implements MouseListener, Act
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+		mouse=arg0.getPoint();
+		if(arg0.getButton()==MouseEvent.BUTTON1){
+			double scrollBar=getVerticalScrollBar().getValue();
+			double panelHeight=panel.getHeight();
+			double eventPanelsHeight=eventPanels.get(0).getHeight();
+			double maxScroll=831;
+			double verticalShiftPercent=(scrollBar/maxScroll)*(panelHeight/eventPanelsHeight)/100;
+			int verticalShift=(int) (verticalShiftPercent*(eventPanels.size()-48));
+			Point actualPoint=new Point((int)mouse.getX(),(int)(mouse.getY()+verticalShift*eventPanelsHeight));
+			mover=(SubEventPanel) panel.getComponentAt(actualPoint);
+			//((JLabel) panel.getComponentAt(actualPoint)).setText("Clicked");
+		}
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+		//mover.setText("Unclicked");
+		movePanel(mover,arg0.getPoint());
 		
 	}
 
