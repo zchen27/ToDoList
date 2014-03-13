@@ -72,12 +72,12 @@ public class CommentWindow extends JFrame implements ActionListener{
 			delete();
 		}
 	}
-	void commit(String comment){
+	public void commit(String comment){
 		eventComment = comment;
 		MainScreen.si.getEventList().get(eventIndexNum).setComment(eventComment);
 		this.dispose();
 	}
-	void delete(){
+	public void delete(){
 		eventComment = "";
 		MainScreen.si.getEventList().get(eventIndexNum).setComment(eventComment);
 		this.dispose();
