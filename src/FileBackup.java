@@ -107,6 +107,7 @@ public class FileBackup extends AbstractFileBackup
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();
 			DOMSource source = new DOMSource(backup);
+			System.out.println(location);
 			StreamResult result = new StreamResult(new File(location));
 		}
 		catch (Exception e)
