@@ -109,15 +109,18 @@ public class EventPanel extends AbstractEventPanel implements MouseListener,
 		int verticalShift = (int) (verticalShiftPercent * (eventPanels.size() - 48));
 		Point actualPoint = new Point((int) mousePoint.getX(),
 				(int) (mousePoint.getY() + verticalShift * eventPanelsHeight));
-		for (int i = 0; i < eventPanels.size() - 1; i++) {
+		for (int i = 0; i < eventPanels.size(); i++) {
 			SubEventPanel test = eventPanels.get(i);
-			SubEventPanel test2 = eventPanels.get(i + 1);
+			SubEventPanel test2 =eventPanels.get(i);
+			if(i!=eventPanels.size()-1){
+				test2 = eventPanels.get(i + 1);
+			}
 			if (i == 0&& actualPoint.getY() < test.getY() + test.getHeight() / 2) {
-				sort(mover, 0);
+				sort(mover, -1);
 			} else if (i == eventPanels.size() - 1
 					&& actualPoint.getY() > test2.getY() + test2.getHeight()
 							/ 2) {
-				sort(mover, i + 1);
+				sort(mover, i);
 			} else if (actualPoint.getY() > test.getY() + test.getHeight() / 2
 					&& actualPoint.getY() < test2.getY() + test2.getHeight()
 							/ 2) {
@@ -129,14 +132,14 @@ public class EventPanel extends AbstractEventPanel implements MouseListener,
 	private void sort(SubEventPanel mover, int newSpot) {
 		System.out.println("New Spot " + newSpot);
 		ArrayList<SubEventPanel> newList = new ArrayList<SubEventPanel>();
-		for (int i = 0; i < newSpot; i++) {
+		for (int i = 0; i <= newSpot; i++) {
 			if (eventPanels.get(i) != mover) {
 				newList.add(eventPanels.get(i));
 			}
 		}
 		newList.add(mover);
 		System.out.println(newList.get(0).getText());
-		for (int i = newSpot; i < eventPanels.size(); i++) {
+		for (int i = newSpot+1; i < eventPanels.size(); i++) {
 			if (eventPanels.get(i)!=mover){
 				newList.add(eventPanels.get(i));
 			}
