@@ -45,6 +45,6 @@ public class FileIOTester
 		ms.si.updateEventList(list);
 		
 		FileBackup f = new FileBackup(ms);
-		f.makeBackup("C://Users/zchen0704/Desktop/backup.xml");
+		f.makeBackup("C:\\file.txt");
 	}
 }

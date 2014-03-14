@@ -7,7 +7,9 @@ public class StateInformation extends AbstractStateInformation
 	
 	StateInformation()
 	{
-		
+		events = new EventList();
+		completed = new EventList();
+		lastBackup = new String();
 	}
 	
 	StateInformation(EventList e, String s)
