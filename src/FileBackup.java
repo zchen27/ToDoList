@@ -57,7 +57,7 @@ public class FileBackup extends AbstractFileBackup
 				String c = e.getComment();
 				History h = e.getHistory();
 				int p = e.getPriority();
-				DateFormat format = new SimpleDateFormat("MMMM/DD/YYYY G 'at' HH:mm:ss z");
+				DateFormat format = new SimpleDateFormat("MM/DD/YYYY G 'at' HH:mm:ss z");
 				
 				Element event = backup.createElement("event");
 				event_list.appendChild(event);
@@ -131,7 +131,7 @@ public class FileBackup extends AbstractFileBackup
 		try
 		{
 			File file = new File(location);
-			DateFormat format = new SimpleDateFormat("MMMM/DD/YYYY G 'at' HH:mm:ss z");
+			DateFormat format = new SimpleDateFormat("MM/DD/YYYY G 'at' HH:mm:ss z");
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 			DocumentBuilder db = dbf.newDocumentBuilder();
 			Document backup = db.parse(file);
