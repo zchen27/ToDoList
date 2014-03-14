@@ -5,6 +5,11 @@ public class StateInformation extends AbstractStateInformation
 	private EventList completed;
 	private String lastBackup;
 	
+	StateInformation()
+	{
+		
+	}
+	
 	StateInformation(EventList e, String s)
 	{
 		events = e;

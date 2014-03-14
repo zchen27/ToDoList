@@ -17,6 +17,7 @@ public class Event extends AbstractEvent
 	{
 		name = n;
 		comment = "";
+		history = new History();
 		priority = URGENT;
 	}
 	
