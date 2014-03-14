@@ -15,17 +15,21 @@ public class MainScreen extends JFrame implements MouseListener, KeyListener{
 	private ArrayList<JComponent> components=new ArrayList<JComponent>();
 	private JPanel contentPane;
 	private AbstractMenuBar menuBar;
-	private AbstractEventPanel eventPanel;
+	private EventPanel eventPanel;
 	
 	MainScreen(){
 		super("To Do List");
 		setUp();
+		si=new StateInformation();
 		//addMenuBar();
 		addEventPanel();
 		//addNewActionItemBar();
 		setVisible(true);
 		
 		//run();	
+	}
+	public EventPanel getEventPanel(){
+		return eventPanel;
 	}
 	private void setUp(){
 		contentPane=new JPanel();
