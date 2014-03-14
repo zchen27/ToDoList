@@ -56,14 +56,14 @@ public class EventPanel extends AbstractEventPanel implements MouseListener, Act
 	    popup.add(menuItem);
 	    MouseListener popupListener = new PopupListener();
 	    addMouseListener(popupListener);
-		for(int i=0;i<mw.si.getEventList().size();i++){
-			eventPanels.add(new SubEventPanel(mw.si.getEventList().get(i)));
-		}
-//		for(int i=0;i<100;i++){
-//			//panel.add(new JPanel());
-//			eventPanels.add(new SubEventPanel("Event "+i));
-//			panel.add(eventPanels.get(i));
+//		for(int i=0;i<mw.si.getEventList().size();i++){
+//			eventPanels.add(new SubEventPanel(mw.si.getEventList().get(i)));
 //		}
+		for(int i=0;i<100;i++){
+			//panel.add(new JPanel());
+			eventPanels.add(new SubEventPanel("Event "+i));
+			panel.add(eventPanels.get(i));
+		}
 		setViewportView(panel);
 	
 		
@@ -99,15 +99,23 @@ public class EventPanel extends AbstractEventPanel implements MouseListener, Act
 		return null;
 	}
 	private void movePanel(SubEventPanel mover,Point mousePoint){
+		double scrollBar=getVerticalScrollBar().getValue();
+		double panelHeight=panel.getHeight();
+		double eventPanelsHeight=eventPanels.get(0).getHeight();
+		double maxScroll=831;
+		double verticalShiftPercent=(scrollBar/maxScroll)*(panelHeight/eventPanelsHeight)/100;
+		int verticalShift=(int) (verticalShiftPercent*(eventPanels.size()-48));
+		System.out.println(verticalShift);
+		Point actualPoint=new Point((int)mousePoint.getX(),(int)(mousePoint.getY()+verticalShift*eventPanelsHeight));
 		for(int i=0;i<eventPanels.size()-1;i++){
 			SubEventPanel test=eventPanels.get(i);
 			SubEventPanel test2=eventPanels.get(i+1);
-			if(i==0&&mousePoint.y<test.getY()+test.getHeight()/2){
+			if(i==0&&actualPoint.getY()<test.getY()+test.getHeight()/2){
 				sort(mover,0);
-			}else if(i==eventPanels.size()-2&&mousePoint.y>test2.getY()+test2.getHeight()/2){
+			}else if(i==eventPanels.size()-2&&actualPoint.getY()>test2.getY()+test2.getHeight()/2){
 				sort(mover,i+1);
-			}else if(mousePoint.y>test.getY()+test.getHeight()/2&&
-						mousePoint.y<test2.getY()+test2.getHeight()/2){
+			}else if(actualPoint.getY()>test.getY()+test.getHeight()/2&&
+					actualPoint.getY()<test2.getY()+test2.getHeight()/2){
 				sort(mover,i);
 			}
 		}
@@ -115,7 +123,7 @@ public class EventPanel extends AbstractEventPanel implements MouseListener, Act
 	private void sort(SubEventPanel mover, int newSpot){
 		System.out.println("test"+newSpot);
 		ArrayList<SubEventPanel> newList=new ArrayList<SubEventPanel>();
-		for(int i=0;i<newSpot;i++){
+		for(int i=0;i<=newSpot;i++){
 			if(eventPanels.get(i)!=mover){
 				newList.add(eventPanels.get(i));
 			}
@@ -125,14 +133,10 @@ public class EventPanel extends AbstractEventPanel implements MouseListener, Act
 			newList.add(eventPanels.get(i));
 		}
 		eventPanels=newList;
-		
-		//mainWindow.si.updateEventList(newList);
 		panel.removeAll();
 		for(int i=0;i<eventPanels.size();i++){
-			panel.add(new JPanel());
 			panel.add(eventPanels.get(i));
 		}
-		repaint();
 	}
 	public void draw() {
 		repaint();
@@ -144,7 +148,7 @@ public class EventPanel extends AbstractEventPanel implements MouseListener, Act
 		SubEventPanel(String s){
 			setText(s);
 			setHorizontalAlignment(SwingConstants.CENTER);
-			setBorder(BorderFactory.createLineBorder(Color.black));
+			//setBorder(BorderFactory.createLineBorder(Color.black));
 		}
 	}
 	public void mouseClicked(MouseEvent arg0) {
@@ -181,7 +185,7 @@ public class EventPanel extends AbstractEventPanel implements MouseListener, Act
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-		mouse=arg0.getPoint();
+		Point mouse=arg0.getPoint();
 		if(arg0.getButton()==MouseEvent.BUTTON1){
 			double scrollBar=getVerticalScrollBar().getValue();
 			double panelHeight=panel.getHeight();
@@ -189,6 +193,7 @@ public class EventPanel extends AbstractEventPanel implements MouseListener, Act
 			double maxScroll=831;
 			double verticalShiftPercent=(scrollBar/maxScroll)*(panelHeight/eventPanelsHeight)/100;
 			int verticalShift=(int) (verticalShiftPercent*(eventPanels.size()-48));
+			System.out.println(verticalShift);
 			Point actualPoint=new Point((int)mouse.getX(),(int)(mouse.getY()+verticalShift*eventPanelsHeight));
 			mover=(SubEventPanel) panel.getComponentAt(eventPanels.get(0).getX()+5,(int) actualPoint.getY());
 			//((JLabel) panel.getComponentAt(actualPoint)).setText("Clicked");
@@ -200,7 +205,8 @@ public class EventPanel extends AbstractEventPanel implements MouseListener, Act
 	public void mouseReleased(MouseEvent arg0) {
 		//mover.setText("Unclicked");
 		movePanel(mover,arg0.getPoint());
-		
+		mainWindow.setVisible(false);
+		mainWindow.setVisible(true);
 	}
 
 	@Override
