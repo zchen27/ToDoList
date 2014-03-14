@@ -1,3 +1,3 @@
 import java.util.ArrayList;
-public class history extends ArrayList <historyEntry> {
+public class History extends ArrayList <HistoryEntry> {
 }

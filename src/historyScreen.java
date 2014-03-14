@@ -12,13 +12,13 @@ import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
-public class historyScreen extends JFrame {
-	public history history;
+public class HistoryScreen extends JFrame {
+	public History history;
 	JPanel CategoryPanel;
 	private FlowLayout flow = new FlowLayout(FlowLayout.LEFT);
 	private JPanel infoPanel;
 
-	historyScreen(history importedHistory){
+	HistoryScreen(History importedHistory){
 		super("History");
 		history = importedHistory;
 		this.setVisible(true);
