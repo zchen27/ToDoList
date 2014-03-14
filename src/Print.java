@@ -3,9 +3,9 @@ import java.awt.print.*;
 import javax.print.*;
 import javax.print.attribute.*;
 public class Print extends AbstractPrint {
-	PrinterJob printWindow;
-	MainScreen mainWindow;
-	Object printThing;
+	private PrinterJob printWindow;
+	public MainScreen mainWindow;
+	public Object printThing;
 	
 	public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
 		try {
@@ -15,7 +15,7 @@ public class Print extends AbstractPrint {
 				DocFlavor flavor=new DocFlavor("text/plain","java.io.InputStream");
 				printWindow.print();
 				SimpleDoc paper=new SimpleDoc(printThing,flavor,new HashDocAttributeSet());
-				docJob.print(paper, new HashPrintRequestAttributeSet());
+				docJob.print(paper,new HashPrintRequestAttributeSet());
 			}	
 		} catch(PrinterException | PrintException p){
 			p.printStackTrace();
@@ -26,7 +26,7 @@ public class Print extends AbstractPrint {
 	
 	public Print(MainScreen window,Object subject){
 		mainWindow=window;
-		printThing=
+		printThing=subject;
 		printWindow=PrinterJob.getPrinterJob();
 	}
 }

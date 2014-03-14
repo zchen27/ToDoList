@@ -3,7 +3,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
 public class MenuBar extends AbstractMenuBar implements ActionListener,PopupMenuListener{
-	MainScreen mainWindow;
+	public MainScreen mainWindow;
 	
 	public void draw() {
 		mainWindow.repaint();
@@ -15,12 +15,16 @@ public class MenuBar extends AbstractMenuBar implements ActionListener,PopupMenu
 		
 	}
 	
+	public void createClosedActionWindow(){
+		AbstractClosedActionWindow completed=new ClosedActionWindow();
+		JFrame closedWindow=new JFrame("Completed Action Items");
+		closedWindow.setContentPane(completed);
+		closedWindow.setVisible(true);
+	}
+	
 	public void actionPerformed(ActionEvent event) {
 		if (event.getSource().equals(closedItems)){
-			AbstractClosedActionWindow completed=new ClosedActionWindow();
-			JFrame closedWindow=new JFrame("Completed Action Items");
-			closedWindow.setContentPane(completed);
-			closedWindow.setVisible(true);
+			createClosedActionWindow();
 		} else if (event.getSource().equals(quit)){
 			System.exit(0);
 		} else if (event.getSource().equals(fileItem)){
@@ -30,12 +34,12 @@ public class MenuBar extends AbstractMenuBar implements ActionListener,PopupMenu
 
 	public MenuBar(MainScreen window){
 		mainWindow=window;
-		draw();
 		fileItem=new JMenuItem("File");
 		fileItem.addActionListener(this);
 		fileItem.setMinimumSize(new Dimension(100,50));
 		add(fileItem);
 		file=new FileMenu(new MainScreen());
+		file.addPopupMenuListener(this);
 		add(file);
 		fileItem.setComponentPopupMenu(file);
 		closedItems=new JMenuItem("Closed Action Items");
@@ -46,6 +50,7 @@ public class MenuBar extends AbstractMenuBar implements ActionListener,PopupMenu
 		quit.addActionListener(this);
 		quit.setMinimumSize(new Dimension(100,50));
 		add(quit);
+		draw();
 	}
 	
 

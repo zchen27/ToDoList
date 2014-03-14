@@ -11,7 +11,7 @@ public class FileMenu extends AbstractFileMenu implements ActionListener{
 	public JFileChooser save,load;
 	public PrinterJob printWindow;
 	public FileNameExtensionFilter backupFilter,saveFilter;
-	public AbstractFileBackup fileBackup;
+	public FileBackup fileBackup;
 	public JMenuItem printItem,saveItem,loadItem;
 	public MainScreen mainWindow;
 	
