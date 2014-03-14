@@ -15,3 +15,8 @@ git reset --hard origin/master
 These commands will overwrite your files with the files on Github Server.
 
 AGAIN! PLEASE BACK UP YOUR FILES BEFORE DOING THIS!
+
+========
+
+Date Format is now:
+"MM/DD/YYYY G 'at' HH:mm:ss z"
