@@ -57,14 +57,14 @@ public class EventPanel extends AbstractEventPanel implements MouseListener,
 		popup.add(menuItem);
 		MouseListener popupListener = new PopupListener();
 		addMouseListener(popupListener);
-		// for(int i=0;i<mw.si.getEventList().size();i++){
-		// eventPanels.add(new SubEventPanel(mw.si.getEventList().get(i)));
-		// }
-		for (int i = 0; i < 200; i++) {
-			// panel.add(new JPanel());
-			eventPanels.add(new SubEventPanel("Event " + i));
-			panel.add(eventPanels.get(i));
+		for (int i = 0; i < mw.si.getEventList().size(); i++) {
+			eventPanels.add(new SubEventPanel(mw.si.getEventList().get(i)));
 		}
+		// for (int i = 0; i < 200; i++) {
+		// // panel.add(new JPanel());
+		// eventPanels.add(new SubEventPanel("Event " + i));
+		// panel.add(eventPanels.get(i));
+		// }
 		setViewportView(panel);
 
 	}
@@ -111,11 +111,12 @@ public class EventPanel extends AbstractEventPanel implements MouseListener,
 				(int) (mousePoint.getY() + verticalShift * eventPanelsHeight));
 		for (int i = 0; i < eventPanels.size(); i++) {
 			SubEventPanel test = eventPanels.get(i);
-			SubEventPanel test2 =eventPanels.get(i);
-			if(i!=eventPanels.size()-1){
+			SubEventPanel test2 = eventPanels.get(i);
+			if (i != eventPanels.size() - 1) {
 				test2 = eventPanels.get(i + 1);
 			}
-			if (i == 0&& actualPoint.getY() < test.getY() + test.getHeight() / 2) {
+			if (i == 0
+					&& actualPoint.getY() < test.getY() + test.getHeight() / 2) {
 				sort(mover, -1);
 			} else if (i == eventPanels.size() - 1
 					&& actualPoint.getY() > test2.getY() + test2.getHeight()
@@ -139,8 +140,8 @@ public class EventPanel extends AbstractEventPanel implements MouseListener,
 		}
 		newList.add(mover);
 		System.out.println(newList.get(0).getText());
-		for (int i = newSpot+1; i < eventPanels.size(); i++) {
-			if (eventPanels.get(i)!=mover){
+		for (int i = newSpot + 1; i < eventPanels.size(); i++) {
+			if (eventPanels.get(i) != mover) {
 				newList.add(eventPanels.get(i));
 			}
 		}
@@ -202,28 +203,30 @@ public class EventPanel extends AbstractEventPanel implements MouseListener,
 	public void mousePressed(MouseEvent arg0) {
 		Point mouse = arg0.getPoint();
 		if (arg0.getButton() == MouseEvent.BUTTON1) {
-			double scrollBar = getVerticalScrollBar().getValue();
-			double eventPanelsHeight = eventPanels.get(0).getHeight();
-			getVerticalScrollBar()
-					.setValue(getVerticalScrollBar().getMaximum());
-			double maxScroll = getVerticalScrollBar().getValue();
-			getVerticalScrollBar().setValue((int) scrollBar);
-			double verticalShiftPercent = (scrollBar / maxScroll);
-			int verticalShift = (int) (verticalShiftPercent * (eventPanels
-					.size() - 48));
-			Point actualPoint = new Point((int) mouse.getX(),
-					(int) (mouse.getY() + verticalShift * eventPanelsHeight));
-			mover = (SubEventPanel) panel.getComponentAt(eventPanels.get(0)
-					.getX() + 5, (int) actualPoint.getY());
-			// ((JLabel) panel.getComponentAt(actualPoint)).setText("Clicked");
-			System.out.println(mover.getText());
+			if (eventPanels.size() > 0) {
+				double scrollBar = getVerticalScrollBar().getValue();
+				double eventPanelsHeight = eventPanels.get(0).getHeight();
+				getVerticalScrollBar().setValue(
+						getVerticalScrollBar().getMaximum());
+				double maxScroll = getVerticalScrollBar().getValue();
+				getVerticalScrollBar().setValue((int) scrollBar);
+				double verticalShiftPercent = (scrollBar / maxScroll);
+				int verticalShift = (int) (verticalShiftPercent * (eventPanels
+						.size() - 48));
+				Point actualPoint = new Point(
+						(int) mouse.getX(),
+						(int) (mouse.getY() + verticalShift * eventPanelsHeight));
+				mover = (SubEventPanel) panel.getComponentAt(eventPanels.get(0)
+						.getX() + 5, (int) actualPoint.getY());
+			}
 		}
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
-		// mover.setText("Unclicked");
-		movePanel(mover, arg0.getPoint());
+		if (mover != null) {
+			movePanel(mover, arg0.getPoint());
+		}
 		mainWindow.setVisible(false);
 		mainWindow.setVisible(true);
 	}
