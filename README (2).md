@@ -1,4 +1,0 @@
-ToDoList
-========
-
-Group Project
