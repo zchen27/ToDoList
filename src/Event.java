@@ -39,6 +39,9 @@ public class Event extends AbstractEvent
 			comment = "THIS COMMENT HAS BEEN DELETED";
 		}
 		comment = newcomment;
+		Calendar ds = Calendar.getInstance();
+		ds.setTimeInMillis(System.currentTimeMillis());
+		history.add(new HistoryEntry(ds, newcomment));
 	}
 
 	@Override
@@ -89,17 +92,18 @@ public class Event extends AbstractEvent
 	@Override
 	public void setPriority(int newPriority)
 	{
+		Calendar ds = Calendar.getInstance();
+		ds.setTimeInMillis(System.currentTimeMillis());
 		priority = newPriority;
-		Calendar ct = Calendar.getInstance();
-		ct.setTimeInMillis(System.currentTimeMillis());
-		
 	}
 	
 	public void complete()
 	{
-		Calendar ct = Calendar.getInstance();
-		ct.setTimeInMillis(System.currentTimeMillis());
-		dateCompleted = ct;
+		Calendar ds = Calendar.getInstance();
+		ds.setTimeInMillis(System.currentTimeMillis());
+		history.add(new HistoryEntry(ds, priority, Event.CLOSED));
+		dateCompleted = ds;
+		priority = Event.CLOSED;
 	}
 	
 	public Calendar dateCompleted()

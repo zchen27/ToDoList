@@ -107,8 +107,7 @@ public class FileBackup extends AbstractFileBackup
 			Transformer transformer = transformerFactory.newTransformer();
 			DOMSource source = new DOMSource(backup);
 			FileOutputStream out = new FileOutputStream(location);
-			BufferedOutputStream stream = new BufferedOutputStream(out);
-			StreamResult result = new StreamResult(stream);
+			StreamResult result = new StreamResult(out);
 			transformer.transform(source, result);
 			System.out.println("File saved!");
 			out.close();

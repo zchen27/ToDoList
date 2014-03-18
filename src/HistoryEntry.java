@@ -4,13 +4,13 @@ import java.util.Calendar;
 public class HistoryEntry {
 	public Calendar time;
 	public String comment;
-	public byte oldPriority;
-	public byte newPriority;
+	public int oldPriority;
+	public int newPriority;
 	public StateInformation info;
-	HistoryEntry(Calendar inTime, byte oldPriority, byte newPriority){
+	HistoryEntry(Calendar inTime, int priority, int closed){
 		time=inTime;
-		this.oldPriority = oldPriority;
-		this.newPriority = newPriority;
+		this.oldPriority = priority;
+		this.newPriority = closed;
 	}
 	HistoryEntry(Calendar inTime, String initalComment){
 		time=inTime;
@@ -22,10 +22,10 @@ public class HistoryEntry {
 	public Calendar getTime(){
 		return time;
 	}
-	public byte getOldPriority(){
+	public int getOldPriority(){
 		return oldPriority;
 	}
-	public byte getNewPriority(){
+	public int getNewPriority(){
 		return newPriority;
 	}
 
