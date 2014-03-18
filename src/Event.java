@@ -28,6 +28,12 @@ public class Event extends AbstractEvent
 		dateE = dateEventual;
 		dateC = dateCurrent;
 		dateU = dateUrgent;
+		Calendar ds = Calendar.getInstance();
+		ds.setTimeInMillis(System.currentTimeMillis());
+		if(ds.compareTo(dateE) < 0)
+		{
+			priority = Event.INACTIVE;
+		}
 	}
 
 	@Override
@@ -94,6 +100,7 @@ public class Event extends AbstractEvent
 	{
 		Calendar ds = Calendar.getInstance();
 		ds.setTimeInMillis(System.currentTimeMillis());
+		history.add(new HistoryEntry(ds, priority, newPriority));
 		priority = newPriority;
 	}
 	
