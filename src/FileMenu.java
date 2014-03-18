@@ -49,7 +49,8 @@ public class FileMenu extends AbstractFileMenu implements ActionListener{
 	
 	public void print() throws PrinterException{
 		Print printer=new Print(mainWindow);
-		//printer.print(mainWindow.getEventPanel().getGraphics(),new PageFormat(),0);
+		printer.addPanel(mainWindow.getEventPanel());
+		printer.print(mainWindow.getGraphics(),new PageFormat(),0);
 	}
 	
 	public FileMenu(MainScreen window){

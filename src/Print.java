@@ -12,7 +12,7 @@ public class Print extends AbstractPrint {
 			Graphics2D printGraph=(Graphics2D)graphics;
 			printGraph.translate(pageFormat.getImageableX(),pageFormat.getImageableY());
 			if (!(panel.equals(null))){
-				panel.printAll(printGraph);
+				mainWindow.printAll(graphics);
 				return PAGE_EXISTS;
 			} else {
 				return NO_SUCH_PAGE;
