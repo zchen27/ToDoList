@@ -10,7 +10,6 @@ import javax.xml.transform.dom.*;
 import javax.xml.transform.stream.*;
 
 import org.w3c.dom.*;
-
 import org.xml.*;
 import org.xml.sax.*;
 
@@ -107,7 +106,11 @@ public class FileBackup extends AbstractFileBackup
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();
 			DOMSource source = new DOMSource(backup);
-			StreamResult result = new StreamResult(new File(location));
+			FileOutputStream out = new FileOutputStream(location);
+			StreamResult result = new StreamResult(out);
+			transformer.transform(source, result);
+			System.out.println("File saved!");
+			out.close();
 		}
 		catch (Exception e)
 		{

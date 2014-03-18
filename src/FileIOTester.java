@@ -38,6 +38,9 @@ public class FileIOTester
 		event0.setPriority(Event.EVENTUAL);
 		event0.setComment("comment_0");
 		
+		event1.setPriority(Event.EVENTUAL);
+		event1.setComment("commen_1");
+		
 		EventList list = new EventList();
 		list.add(event0);
 		list.add(event1);
@@ -45,6 +48,6 @@ public class FileIOTester
 		ms.si.updateEventList(list);
 		
 		FileBackup f = new FileBackup(ms);
-		f.makeBackup("C:\\file.txt");
+		f.makeBackup("file.xml");
 	}
 }

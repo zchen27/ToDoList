@@ -57,7 +57,7 @@ public class HistoryScreen extends JFrame {
 	}
 
 	
-	void draw (){		
+	public void draw (){		
 		for (int counter=history.size()-1;counter>-1;counter--){
 			JPanel panelToAdd = new JPanel();
 			panelToAdd.setAlignmentX(panelToAdd.LEFT_ALIGNMENT);
