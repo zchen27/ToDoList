@@ -13,7 +13,11 @@ import java.awt.event.AdjustmentListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
@@ -57,14 +61,15 @@ public class EventPanel extends AbstractEventPanel implements MouseListener,
 		popup.add(menuItem);
 		MouseListener popupListener = new PopupListener();
 		addMouseListener(popupListener);
+		panel.setPreferredSize(new Dimension(mainWindow.getHeight(),mainWindow.getWidth()));
 		for (int i = 0; i < mw.si.getEventList().size(); i++) {
 			eventPanels.add(new SubEventPanel(mw.si.getEventList().get(i)));
+			panel.add(eventPanels.get(i));
 		}
-		// for (int i = 0; i < 200; i++) {
-		// // panel.add(new JPanel());
-		// eventPanels.add(new SubEventPanel("Event " + i));
-		// panel.add(eventPanels.get(i));
-		// }
+//		 for (int i = 0; i < 200; i++) {
+//			 eventPanels.add(new SubEventPanel(new Event("Event "+i)));
+//			 panel.add(eventPanels.get(i));
+//		 }
 		setViewportView(panel);
 
 	}
@@ -159,12 +164,11 @@ public class EventPanel extends AbstractEventPanel implements MouseListener,
 	private class SubEventPanel extends JLabel {
 		SubEventPanel(AbstractEvent e) {
 			setText(e.getName());
+			setHorizontalAlignment(SwingConstants.CENTER);
 		}
-
 		SubEventPanel(String s) {
 			setText(s);
 			setHorizontalAlignment(SwingConstants.CENTER);
-			// setBorder(BorderFactory.createLineBorder(Color.black));
 		}
 	}
 
@@ -221,8 +225,6 @@ public class EventPanel extends AbstractEventPanel implements MouseListener,
 			}
 		}
 	}
-
-	@Override
 	public void mouseReleased(MouseEvent arg0) {
 		if (mover != null) {
 			movePanel(mover, arg0.getPoint());
@@ -231,10 +233,22 @@ public class EventPanel extends AbstractEventPanel implements MouseListener,
 		mainWindow.setVisible(true);
 	}
 
-	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-
+	}
+	
+	public void refresh(){
+		panel.removeAll();
+		for (int i = 0; i < mainWindow.si.getEventList().size(); i++) {
+			Event e=mainWindow.si.getEventList().get(i);
+			if(e.getPriority()==e.INACTIVE){
+				Calendar[] c=e.getDates();
+				DateFormat date=new SimpleDateFormat("MM/DD/YYYY G 'at' HH:mm:ss z");
+				String s = date.format(c[0]);
+				eventPanels.add(new SubEventPanel(s));
+			}
+			eventPanels.add(new SubEventPanel(e));
+			
+		}
 	}
 
 }
