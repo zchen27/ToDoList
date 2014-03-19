@@ -20,8 +20,10 @@ public class NewActionItemBar extends JPanel implements KeyListener{
 	private String eventName="";
 	private JLabel newActionItemLbl;
 	private JTextField newActionItemBox;
+	private MainScreen mainWindow;
 	NewActionItemBar(MainScreen mainScreen){   // will have (MainScreen mainScreen) as parameter
 		super(); 
+		mainWindow=mainScreen;
 		this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 
 		//this.setMaximumSize(new Dimension(frame.getWidth(),100)); // change to mainScreen.getWidth()
@@ -43,9 +45,10 @@ public class NewActionItemBar extends JPanel implements KeyListener{
 	public void update(){
 		eventName=newActionItemBox.getText();
 		Event e = new Event(eventName);
-		MainScreen.si.getEventList().add(e);
+		mainWindow.si.getEventList().add(e);
 		//System.out.println(eventName);
 		newActionItemBox.setText("");
+		mainWindow.getEventPanel().refresh();
 	}
 	@Override
 	public void keyPressed(KeyEvent e) {

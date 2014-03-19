@@ -61,7 +61,8 @@ public class EventPanel extends AbstractEventPanel implements MouseListener,
 		popup.add(menuItem);
 		MouseListener popupListener = new PopupListener();
 		addMouseListener(popupListener);
-		panel.setPreferredSize(new Dimension(mainWindow.getHeight(),mainWindow.getWidth()));
+		setPreferredSize(new Dimension(mainWindow.getHeight(),mainWindow.getWidth()));
+		
 		for (int i = 0; i < mw.si.getEventList().size(); i++) {
 			eventPanels.add(new SubEventPanel(mw.si.getEventList().get(i)));
 			panel.add(eventPanels.get(i));
@@ -165,6 +166,7 @@ public class EventPanel extends AbstractEventPanel implements MouseListener,
 		SubEventPanel(AbstractEvent e) {
 			setText(e.getName());
 			setHorizontalAlignment(SwingConstants.CENTER);
+			setPreferredSize(getMinimumSize());
 		}
 		SubEventPanel(String s) {
 			setText(s);
@@ -237,6 +239,8 @@ public class EventPanel extends AbstractEventPanel implements MouseListener,
 	}
 	
 	public void refresh(){
+		eventPanels.removeAll(eventPanels);
+		
 		panel.removeAll();
 		for (int i = 0; i < mainWindow.si.getEventList().size(); i++) {
 			Event e=mainWindow.si.getEventList().get(i);
@@ -247,8 +251,12 @@ public class EventPanel extends AbstractEventPanel implements MouseListener,
 				eventPanels.add(new SubEventPanel(s));
 			}
 			eventPanels.add(new SubEventPanel(e));
-			
 		}
+		for (int i = 0; i < eventPanels.size(); i++) {
+			panel.add(eventPanels.get(i));
+		}
+		mainWindow.setVisible(false);
+		mainWindow.setVisible(true);
 	}
 
 }
