@@ -63,10 +63,10 @@ public class EditActionItem1 implements ActionListener {
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		eventIndex = theEventIndex;
-		//information = theMainWindow.si;
 		mainWindow = theMainWindow;
-		//myEvent = information.getEventList().get(theEventIndex);
-		//eventName = myEvent.getName();
+		information = mainWindow.si;
+		myEvent = information.getEventList().get(theEventIndex);
+		eventName = myEvent.getName();
 	
 		itemName();
 		addJRadioButtons();
@@ -81,10 +81,7 @@ public class EditActionItem1 implements ActionListener {
 		JLabel theName = new JLabel ("Item Name: ");
 		theName.setBounds(50, 30, 100, 30);
 		contentPane.add(theName);
-		
-		//eventName
-		// should be able to edit the name of this item (if click Enter in JTextField and also if click anywhere else in the screen)
-		
+	
 	}
 	
 	private void addJRadioButtons() {
@@ -148,14 +145,7 @@ public class EditActionItem1 implements ActionListener {
 	
 	private void addJTextFields() {
 		// add JTextFields that allow user to set date of future priority changes
-		/*
-		 JXDatePicker picker = new JXDatePicker();
-	        picker.setDate(Calendar.getInstance().getTime());
-	        picker.setFormats(new SimpleDateFormat("dd.MM.yyyy"));
-
-	        panel.add(picker);
-	    */    
-	      // use JCalendar/JXDatePicker/JDateChooser for a drop-down calendar to choose the date
+	
 		toEventualField = new JTextField();
 		toCurrentField = new JTextField();
 		toUrgentField = new JTextField();
@@ -249,90 +239,6 @@ public class EditActionItem1 implements ActionListener {
 			changePriority ("Completed");
 		}
 			
-		/*
-		// JLabel with error message not showing up if date is wrong!
-		// check if same dates (if all same, flip to highest priority unless downgrading to highest priority)
-		Calendar dateForUrgent = null;
-		Calendar dateForCurrent = null;
-		Calendar dateForEventual = null;
-		
-		String toBeProcessed;
-		boolean readyToSendDate = true;
-		
-		// all the if statements should be here before everything else is tested omg
-		
-		String toUrgentFieldText = toUrgentField.getText();
-		String toUrgentFieldMonth = toUrgentFieldText.substring(0,1);
-		int urgentMonth = Integer.parseInt(toUrgentFieldMonth);
-		String toUrgentFieldDate = toUrgentFieldText.substring(3,4);
-		int urgentDate = Integer.parseInt(toUrgentFieldDate);
-		String toUrgentFieldYear = toUrgentFieldText.substring(6,7);
-		int urgentYear = Integer.parseInt(toUrgentFieldYear);
-		dateForUrgent.set(urgentYear, urgentMonth, urgentDate);
-		toBeProcessed = toUrgentFieldText;
-        
-		String toCurrentFieldText = toCurrentField.getText();
-		String toCurrentFieldMonth = toCurrentFieldText.substring(0,1);
-		int currentMonth = Integer.parseInt(toCurrentFieldMonth);
-		String toCurrentFieldDate = toCurrentFieldText.substring(3,4);
-		int currentDate = Integer.parseInt(toCurrentFieldDate);
-		String toCurrentFieldYear = toCurrentFieldText.substring(6,7);
-		int currentYear = Integer.parseInt(toCurrentFieldYear);
-		dateForCurrent.set(currentYear, currentMonth, currentDate);
-		toBeProcessed = toCurrentFieldText;
-
-		String toEventualFieldText = toEventualField.getText();
-		String toEventualFieldMonth = toEventualFieldText.substring(0,1);
-		int eventualMonth = Integer.parseInt(toCurrentFieldMonth);
-		String toEventualFieldDate = toEventualFieldText.substring(3,4);
-		int eventualDate = Integer.parseInt(toEventualFieldDate);
-		String toEventualFieldYear = toEventualFieldText.substring(6,7);
-		int eventualYear = Integer.parseInt(toEventualFieldYear);
-		dateForEventual.set(eventualYear, eventualMonth, eventualDate);
-		toBeProcessed = toEventualFieldText;
-		
-		System.out.println (toBeProcessed);
-		
-		JLabel dateErrorMessage = new JLabel ("");
-		contentPane.add(dateErrorMessage);
-		dateErrorMessage.setBounds (300, 200, 200, 50);
-		
-		int theMonth = Integer.parseInt(toBeProcessed.substring(0,1));
-		int theDay = Integer.parseInt(toBeProcessed.substring(3,4));
-		int theYear = Integer.parseInt(toBeProcessed.substring(6,7));
-		
-		if (toBeProcessed.length()!=10) {
-			dateErrorMessage.setText("Incorrect number of digits in date. Enter correctly.");
-			readyToSendDate = false;
-		} 
-		if (theMonth < 0 || theMonth > 11) {
-			dateErrorMessage.setText("Month is imaginary. Enter correctly.");
-			readyToSendDate = false;
-		}
-		
-		if (theMonth==0||theMonth==2||theMonth==4||theMonth==6||theMonth==7||theMonth==9||theMonth==11) {
-			if (theDay < 0 || theDay > 31) {
-				dateErrorMessage.setText("Date is imaginary. Enter correctly.");
-				readyToSendDate = false;
-			}
-		} else if (theMonth == 1) {
-			if (theYear%4==0 && (theDay < 0 || theDay > 29)) {
-				dateErrorMessage.setText("Day is imaginary. Enter correctly.");
-				readyToSendDate = false;
-			if (theDay < 0 || theDay > 28) {
-				dateErrorMessage.setText("Day is imaginary. Enter correctly.");
-				readyToSendDate = false;
-			}
-		}	
-		if (theYear < 0) {
-			dateErrorMessage.setText("Year is imaginary. Enter correctly.");
-			readyToSendDate = false;
-		}
-			
-		if (readyToSendDate) {
-			//myEvent.setDates(dateForEventual, dateForCurrent, dateForUrgent);
-		}}
-	*/
 	}                      
 	
 	public void viewComment(){
