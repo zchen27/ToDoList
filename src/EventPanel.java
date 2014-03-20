@@ -248,16 +248,15 @@ public class EventPanel extends JScrollPane implements MouseListener,ActionListe
 	}
 
 	public void actionPerformed(ActionEvent event) {
+		Point actualPoint=actualPoint(mouse);
+		Event e =((SubEventPanel) panel.getComponentAt(actualPoint)).getEvent();
 		if (event.getSource().equals(deleteItem)){
-			Point actualPoint=actualPoint(mouse);
-			Event remove =((SubEventPanel) panel.getComponentAt(actualPoint)).getEvent();
-			mainWindow.si.getEventList().remove(remove);
+			mainWindow.si.getEventList().remove(e);
 			refresh();
 		} else if (event.getSource().equals(completeItem)){
-			Point actualPoint=actualPoint(mouse);
-			Event complete =((SubEventPanel) panel.getComponentAt(actualPoint)).getEvent();
-			complete.setPriority(Event.CLOSED);
+			e.setPriority(Event.CLOSED);
 		} else if (event.getSource().equals(editItem)){
+			new EditActionItem1(mainWindow,e);
 		}
 		
 	}

@@ -7,7 +7,6 @@ public class FileIOTester
 	public static void main(String[] args)
 	{
 		MainScreen ms = new MainScreen();
-		EventList e = new EventList();
 		Event event0 = new Event("event0");
 		Event event1 = new Event("event1");
 		
@@ -37,9 +36,11 @@ public class FileIOTester
 		
 		event0.setPriority(Event.EVENTUAL);
 		event0.setComment("comment_0");
+		event0.setDates(dates0[0], dates0[1], dates0[2]);
 		
 		event1.setPriority(Event.EVENTUAL);
 		event1.setComment("commen_1");
+		event1.setDates(dates1[0], dates1[1], dates1[2]);
 		
 		EventList list = new EventList();
 		list.add(event0);
@@ -49,5 +50,18 @@ public class FileIOTester
 		
 		FileBackup f = new FileBackup(ms);
 		f.makeBackup("file.xml");
+		
+		EventList list2 = f.loadBackup("file.xml");
+		System.out.println(list2.size());
+		for(Event e: list2)
+		{
+			System.out.println("");
+			System.out.println("NAME: " + e.getName());
+			System.out.println("PRIORITY: " + e.getPriority());
+			System.out.println("COMMENT: " + e.getComment());
+			System.out.println("DATE_E: " + format.format(e.getDates()[0].getTime()));
+			System.out.println("DATE_C: " + format.format(e.getDates()[1].getTime()));
+			System.out.println("DATE_U: " + format.format(e.getDates()[2].getTime()));
+		}
 	}
 }

@@ -48,7 +48,7 @@ public class EditActionItem1 implements ActionListener {
 	static StateInformation information;
 	
 	
-	public EditActionItem1 (MainScreen theMainWindow, int theEventIndex) {
+	public EditActionItem1 (MainScreen theMainWindow, Event e) {
 		frame = new JFrame("Edit Action Item");
 		frame.setLocationRelativeTo(null);
 		frame.setBounds(0,0,0,0);
@@ -62,10 +62,9 @@ public class EditActionItem1 implements ActionListener {
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-		eventIndex = theEventIndex;
 		mainWindow = theMainWindow;
 		information = mainWindow.si;
-		myEvent = information.getEventList().get(theEventIndex);
+		myEvent = e;
 		eventName = myEvent.getName();
 	
 		itemName();
