@@ -33,7 +33,7 @@ import javax.swing.SwingConstants;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 
-public class EventPanel extends AbstractEventPanel implements MouseListener,ActionListener {
+public class EventPanel extends JScrollPane implements MouseListener,ActionListener {
 	private MainScreen mainWindow;
 	private ArrayList<String> events;
 	private ArrayList<SubEventPanel> eventPanels;
