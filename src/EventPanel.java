@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -279,6 +280,10 @@ public class EventPanel extends JScrollPane implements MouseListener,ActionListe
 		for (int i = 0; i < eventPanels.size(); i++) {
 			panel.add(eventPanels.get(i));
 		}
+//		if(eventPanels.size()<21){
+//			panel.add(Box.createRigidArea(new Dimension(0,800-eventPanels.size()*40)));
+//		}
+		
 		mainWindow.setVisible(false);
 		mainWindow.setVisible(true);
 	}
