@@ -16,10 +16,7 @@ public class MenuBar extends AbstractMenuBar implements ActionListener,PopupMenu
 	}
 	
 	public void createClosedActionWindow(){
-		AbstractClosedActionWindow completed=new ClosedActionWindow();
-		JFrame closedWindow=new JFrame("Completed Action Items");
-		closedWindow.setContentPane(completed);
-		closedWindow.setVisible(true);
+		ClosedActionWindow completed=new ClosedActionWindow(mainWindow);
 	}
 	
 	public void actionPerformed(ActionEvent event) {
