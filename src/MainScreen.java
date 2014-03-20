@@ -6,7 +6,7 @@ import javax.swing.*;
 
 
 public class MainScreen extends JFrame implements MouseListener, KeyListener{
-	public static AbstractStateInformation si;
+	public static StateInformation si;
 	private boolean leftClick;
 	private boolean rightClick;
 	private Point mousePoint;

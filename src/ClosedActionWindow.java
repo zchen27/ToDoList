@@ -20,6 +20,9 @@ public class ClosedActionWindow extends JFrame implements MouseListener{
 		addMouseListener(this);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setVisible(true);
+		for(int i=0;i<mw.si.getClosedList().size();i++){
+			
+		}
 	
 	}
 	
