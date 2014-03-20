@@ -76,9 +76,11 @@ public class StateInformation extends AbstractStateInformation
 		return events;
 	}
 	
-	public EventList getClosedList(){
+	public EventList getClosedList()
+	{
 		return completed;
 	}
+	
 	@Override
 	public void setBackUp(String newBackup)
 	{
