@@ -35,7 +35,36 @@ public class Print extends AbstractPrint {
 				String[] history=new String[0];
 				for (HistoryEntry e: printEvent.getHistory()){
 					history=new String[history.length+1];
-					String newEntry=e.getTime().get(Calendar.MONTH).toString();
+					String newEntry="";
+					newEntry+=e.getTime().get(Calendar.MONTH)+"/"+e.getTime().get(Calendar.DATE)+"/"+e.getTime().get(Calendar.YEAR)+": ";
+					if (e.getComment()==null){
+						newEntry+="Priority Change - ";
+						if (e.getOldPriority()==AbstractEvent.CLOSED){
+							newEntry+="Completed to ";
+						} else if (e.getOldPriority()==AbstractEvent.INACTIVE){
+							newEntry+="Inactive to ";
+						} else if (e.getOldPriority()==AbstractEvent.EVENTUAL){
+							newEntry+="Eventual to ";
+						} else if (e.getOldPriority()==AbstractEvent.CURRENT){
+							newEntry+="Current to ";
+						} else if (e.getOldPriority()==AbstractEvent.URGENT){
+							newEntry+="Urgent to ";
+						}
+						if (e.getNewPriority()==AbstractEvent.CLOSED){
+							newEntry+="Completed";
+						} else if (e.getNewPriority()==AbstractEvent.INACTIVE){
+							newEntry+="Inactive";
+						} else if (e.getNewPriority()==AbstractEvent.EVENTUAL){
+							newEntry+="Eventual";
+						} else if (e.getNewPriority()==AbstractEvent.CURRENT){
+							newEntry+="Current";
+						} else if (e.getNewPriority()==AbstractEvent.URGENT){
+							newEntry+="Urgent";
+						}
+					} else {
+						newEntry="Comment - ";
+						
+					}
 				}
 			}
 		}	

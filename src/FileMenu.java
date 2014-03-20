@@ -2,7 +2,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.print.*;
 import java.io.*;
-
 import javax.swing.*;
 import javax.swing.filechooser.*;
 import javax.print.*;
@@ -42,7 +41,8 @@ public class FileMenu extends AbstractFileMenu implements ActionListener{
 		int returnVal=load.showOpenDialog(this);
 		if (returnVal==JFileChooser.APPROVE_OPTION){
 			File backup=load.getSelectedFile();
-			AbstractEventList list=fileBackup.loadBackup(backup.getAbsolutePath());
+			EventList list=fileBackup.loadBackup(backup.getAbsolutePath());
+			mainWindow.si.updateEventList(list);
 		}
 	}
 
