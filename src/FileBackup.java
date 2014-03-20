@@ -44,7 +44,7 @@ public class FileBackup extends AbstractFileBackup
 		try 
 		{
 			db = dbf.newDocumentBuilder();
-			Document backup = db.parse(new File(location));
+			Document backup = db.newDocument();
 			
 			Element event_list = backup.createElement("event_list");
 			backup.appendChild(event_list);
@@ -63,27 +63,28 @@ public class FileBackup extends AbstractFileBackup
 				
 				Attr name = backup.createAttribute("name");
 				name.setValue(n);
-				event.appendChild(name);
+				event.setAttributeNode(name);
 				
 				Attr priority = backup.createAttribute("priority");
 				priority.setValue("" + p);
-				event.appendChild(priority);
+				event.setAttributeNode(priority);
 				
 				Attr to_eventual = backup.createAttribute("to_eventual");
-				to_eventual.setValue(format.format(d[0]));
-				event.appendChild(to_eventual);
+				to_eventual.setValue(format.format(d[0].getTime()));
+				event.setAttributeNode(to_eventual);
 				
 				Attr to_current = backup.createAttribute("to_current");
-				to_current.setValue(format.format(d[1]));
-				event.appendChild(to_current);
+				to_current.setValue(format.format(d[1].getTime()));
+				event.setAttributeNode(to_current);
 				
 				Attr to_urgent = backup.createAttribute("to_urgent");
-				to_urgent.setValue(format.format(d[2]));
-				event.appendChild(to_urgent);
+				to_urgent.setValue(format.format(d[2].getTime()));
+				event.setAttributeNode(to_urgent);
 				
 				Attr comment = backup.createAttribute("comment");
 				comment.setValue(c);
-				event.appendChild(comment);
+				event.setAttributeNode(comment);
+				
 				
 				Element history = backup.createElement("history");
 				event.appendChild(history);
@@ -94,12 +95,12 @@ public class FileBackup extends AbstractFileBackup
 					history.appendChild(entry);
 					
 					Attr time = backup.createAttribute("time");
-					time.setValue(format.format(he.getTime()));
-					entry.appendChild(time);
+					time.setValue(format.format(he.getTime().getTime()));
+					entry.setAttributeNode(time);
 					
 					Attr entryComment = backup.createAttribute("entry_comment");
 					entryComment.setValue(he.getComment());
-					entry.appendChild(entryComment);
+					entry.setAttributeNode(entryComment);
 				}
 			}
 			
@@ -109,7 +110,6 @@ public class FileBackup extends AbstractFileBackup
 			FileOutputStream out = new FileOutputStream(location);
 			StreamResult result = new StreamResult(out);
 			transformer.transform(source, result);
-			System.out.println("File saved!");
 			out.close();
 		}
 		catch (Exception e)
@@ -142,8 +142,6 @@ public class FileBackup extends AbstractFileBackup
 			backup.getDocumentElement().normalize();
 			
 			NodeList nlist = backup.getElementsByTagName("event");
-			
-			
 			
 			for(int i = 0; i < nlist.getLength(); i++)
 			{
