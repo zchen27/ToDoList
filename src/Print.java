@@ -32,9 +32,9 @@ public class Print extends AbstractPrint {
 				} else if (printEvent.getPriority()==AbstractEvent.URGENT){
 					priority+="Urgent";
 				}
-				String[] history=new String[0];
+				JLabel priorityLabel=new JLabel(priority);
+				JLabel[] history=new JLabel[0];
 				for (HistoryEntry e: printEvent.getHistory()){
-					history=new String[history.length+1];
 					String newEntry="";
 					newEntry+=e.getTime().get(Calendar.MONTH)+"/"+e.getTime().get(Calendar.DATE)+"/"+e.getTime().get(Calendar.YEAR)+": ";
 					if (e.getComment()==null){
@@ -62,10 +62,26 @@ public class Print extends AbstractPrint {
 							newEntry+="Urgent";
 						}
 					} else {
-						newEntry="Comment - ";
-						
+						newEntry="Comment Change - ";
+						newEntry+="\""+e.getComment()+"\"";
 					}
+					newEntry+="\n";
+					history=new JLabel[history.length+1];
+					history[history.length-1]=new JLabel(newEntry);
 				}
+				String commentString="Comment: ";
+				commentString+=printEvent.getComment();
+				JLabel comment=new JLabel(commentString);
+				JPanel contentPane=new JPanel();
+				contentPane.add(name);
+				contentPane.add(priorityLabel);
+				contentPane.add(new JLabel("History:"));
+				for (JLabel l: history){
+					contentPane.add(l);
+				}
+				contentPane.add(comment);
+				printFrame.setContentPane(contentPane);
+				printFrame.printAll(graphics);
 			}
 		}	
 		return NO_SUCH_PAGE;
@@ -82,5 +98,10 @@ public class Print extends AbstractPrint {
 	public Print(MainScreen window){
 		mainWindow=window;
 		printWindow=PrinterJob.getPrinterJob();
+	}
+	
+	public static void main(String[] args){
+		MainScreen window=new MainScreen();
+		window.draw();
 	}
 }
