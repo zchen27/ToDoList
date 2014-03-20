@@ -51,7 +51,7 @@ public class EventPanel extends JScrollPane implements MouseListener,ActionListe
 		mainWindow = mw;
 		panel = new JPanel();
 		eventPanels = new ArrayList<SubEventPanel>();
-		panel.setLayout(new GridLayout(0, 1));
+		panel.setLayout(new GridLayout(50, 1));
 		addMouseListener(this);
 		popup = new JPopupMenu();
 		deleteItem = new JMenuItem("Delete Item");
@@ -166,7 +166,6 @@ public class EventPanel extends JScrollPane implements MouseListener,ActionListe
 			event=e;
 			setText(e.getName());
 			setHorizontalAlignment(SwingConstants.CENTER);
-			setPreferredSize(getMinimumSize());
 			if (e.getPriority() == 0) {
 			} else if (e.getPriority() == 1) {
 				setFont(this.getFont().deriveFont(Font.ITALIC));
