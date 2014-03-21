@@ -3,7 +3,7 @@ import java.util.*;
 import javax.xml.bind.annotation.*;
 import javax.xml.datatype.*;
 
-@XmlRootElement
+
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Event extends AbstractEvent
 {
@@ -66,7 +66,7 @@ public class Event extends AbstractEvent
 			comment = "THIS COMMENT HAS BEEN DELETED";
 		}
 		comment = newcomment;
-		Calendar ds = Calendar.getInstance();
+		GregorianCalendar ds = new GregorianCalendar();
 		ds.setTimeInMillis(System.currentTimeMillis());
 		history.add(new HistoryEntry(ds, newcomment));
 	}
@@ -125,7 +125,7 @@ public class Event extends AbstractEvent
 	@Override
 	public void setPriority(int newPriority)
 	{
-		Calendar ds = Calendar.getInstance();
+		GregorianCalendar ds = new GregorianCalendar();
 		ds.setTimeInMillis(System.currentTimeMillis());
 		history.add(new HistoryEntry(ds, priority, newPriority));
 		priority = newPriority;
