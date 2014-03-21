@@ -7,11 +7,11 @@ import javax.swing.filechooser.*;
 import javax.print.*;
 import javax.print.attribute.*;
 public class FileMenu extends AbstractFileMenu implements ActionListener{
-	public JFileChooser save,load;
-	public PrinterJob printWindow;
-	public FileNameExtensionFilter backupFilter,saveFilter;
-	public FileBackup fileBackup;
-	public JMenuItem printItem,saveItem,loadItem;
+	private JFileChooser save,load;
+	private PrinterJob printWindow;
+	private FileNameExtensionFilter backupFilter,saveFilter;
+	private FileBackup fileBackup;
+	private JMenuItem printItem,saveItem,loadItem;
 	public MainScreen mainWindow;
 	
 	public void actionPerformed(ActionEvent event) {

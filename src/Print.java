@@ -7,8 +7,8 @@ import java.util.*;
 public class Print extends AbstractPrint {
 	private PrinterJob printWindow;
 	public MainScreen mainWindow;
-	public EventPanel panel;
-	public Event printEvent;
+	private EventPanel panel;
+	private Event printEvent;
 	
 	public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
 		if (pageIndex>0){
@@ -17,7 +17,7 @@ public class Print extends AbstractPrint {
 		Graphics2D printGraph=(Graphics2D)graphics;
 		printGraph.translate(pageFormat.getImageableX(),pageFormat.getImageableY());
 		if (!(panel.equals(null))){
-			mainWindow.printAll(graphics);
+			panel.printAll(graphics);
 			return PAGE_EXISTS;
 		} else if (!(printEvent.equals(null))){
 			JFrame printFrame=new JFrame();
