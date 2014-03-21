@@ -84,6 +84,7 @@ public class Print extends AbstractPrint {
 			contentPane.add(comment);
 			printFrame.setContentPane(contentPane);
 			printFrame.printAll(graphics);
+			return PAGE_EXISTS;
 		}
 		return NO_SUCH_PAGE;
 	}	
