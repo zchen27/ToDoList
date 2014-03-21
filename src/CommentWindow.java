@@ -10,6 +10,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 
@@ -23,6 +24,7 @@ public class CommentWindow extends JFrame implements ActionListener{
 	private JButton commit,delete;
 	private JTextArea txtField;
 	private int eventIndexNum;
+	private JScrollPane scrollPane;
 	CommentWindow(MainScreen mainScreen,String title,int eventIndex){
 		super(title);
 		eventIndexNum=eventIndex;
@@ -37,7 +39,11 @@ public class CommentWindow extends JFrame implements ActionListener{
 		txtField.setLineWrap(true);
 		txtField.setText(eventComment);
 		txtField.setBorder(BorderFactory.createLineBorder(Color.black));
-		contentPane.add(txtField);
+		scrollPane= new JScrollPane();
+		scrollPane.setViewportView(txtField);
+		scrollPane.setHorizontalScrollBarPolicy(scrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setVerticalScrollBarPolicy(scrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		contentPane.add(scrollPane);
 
 		commit = new JButton("Commit");
 		commit.setActionCommand("commit");
