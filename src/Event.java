@@ -11,10 +11,11 @@ public class Event extends AbstractEvent
 	private String comment;
 	private String name;
 	private int priority;
+	private MainScreen ms;
 	
-	
-	public Event(String n)
+	public Event(String n, MainScreen mainScreen)
 	{
+		ms=mainScreen;
 		name = n;
 		comment = "";
 		history = new History();
@@ -116,6 +117,9 @@ public class Event extends AbstractEvent
 		history.add(new HistoryEntry(ds, priority, Event.CLOSED));
 		dateCompleted = ds;
 		priority = Event.CLOSED;
+		ms.si.getEventList().remove(this);
+		ms.si.getClosedList().add(this);
+		
 	}
 	
 	public Calendar dateCompleted()

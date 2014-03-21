@@ -253,9 +253,7 @@ public class EventPanel extends JScrollPane implements MouseListener,ActionListe
 			mainWindow.si.getEventList().remove(e);
 			refresh();
 		} else if (event.getSource().equals(completeItem)){
-			e.setPriority(Event.CLOSED);
-			mainWindow.si.getEventList().remove(e);
-			mainWindow.si.getClosedList().add(e);
+			e.complete();
 			refresh();
 		} else if (event.getSource().equals(editItem)){
 			new EditActionItem1(mainWindow,e);
