@@ -1,5 +1,6 @@
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -16,21 +17,26 @@ public class ClosedActionWindow extends JFrame implements MouseListener{
 	MainScreen mw;
 	JPanel contentPane;
 	JScrollPane scrollPane;
+	JPanel subPanel;
 	ClosedActionWindow(MainScreen mainScreen){
 		mw=mainScreen;
 		contentPane=new JPanel();
 		scrollPane=new JScrollPane();
+		subPanel=new JPanel();
 		setContentPane(contentPane);
 		contentPane.setLayout(new BoxLayout(contentPane,BoxLayout.Y_AXIS));
+		subPanel.setLayout(new GridLayout(50, 1));
 		setSize(400,600);
 		setLocation(50,50);
 		setResizable(false);
 		addMouseListener(this);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		for(int i=0;i<mw.si.getClosedList().size();i++){
-			scrollPane.add(new SubEventPanel(mw.si.getClosedList().get(i)));
+		for(int i=mw.si.getClosedList().size()-1;i>=0;i--){
+			System.out.println("test");
+			subPanel.add(new SubEventPanel(mw.si.getClosedList().get(i)));
 		}
 		contentPane.add(scrollPane);
+		scrollPane.setViewportView(subPanel);
 		setVisible(true);
 	
 	}
