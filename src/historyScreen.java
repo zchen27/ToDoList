@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.util.Calendar;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -48,16 +49,19 @@ public class HistoryScreen extends JFrame {
 		infoPanel.add(CategoryPanel);
 		
 		JScrollPane scrollPane = new JScrollPane();
+		
 		scrollPane.setViewportView(infoPanel);
 		scrollPane.setHorizontalScrollBarPolicy(scrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setVerticalScrollBarPolicy(scrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		
 		this.add(scrollPane);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-//		this.repaint();
+		this.setVisible(true);
 	}
 
 	
-	public void draw (){		
+	void draw (){		
+		int totalHeight = 60;
 		for (int counter=history.size()-1;counter>-1;counter--){
 			JPanel panelToAdd = new JPanel();
 			panelToAdd.setAlignmentX(panelToAdd.LEFT_ALIGNMENT);
@@ -90,7 +94,6 @@ public class HistoryScreen extends JFrame {
 			stringDate +=(intYear%1000);
 
 			String stringTime;
-
 			// Same loop for the same thing, just adding the zero in front of the hour instead
 			if (intHour>9){
 				stringTime = "" + intHour;
@@ -141,7 +144,7 @@ public class HistoryScreen extends JFrame {
 					error.setVisible(true);
 					error.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 				}
-
+				
 				if(history.get(counter).newPriority==0){
 					newPriorityString = "Completed";
 				} else if (history.get(counter).newPriority==1){
@@ -154,7 +157,7 @@ public class HistoryScreen extends JFrame {
 					newPriorityString = "Urgent";
 				} else {
 					JFrame error = new JFrame();
-					error.add(new JLabel("Crashed, old priority integer does not match any priorities"));
+					error.add(new JLabel("Crashed, new priority integer does not match any priorities"));
 					error.setVisible(true);
 					error.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 				}
@@ -163,11 +166,15 @@ public class HistoryScreen extends JFrame {
 				priorityChangeLabel.setBorder(new EmptyBorder(10,40,10,10));
 				priorityChangeLabel.setAlignmentX(priorityChangeLabel.LEFT_ALIGNMENT);
 				panelToAdd.add(priorityChangeLabel);
+				totalHeight+=35;
 			} else {
 				//comment change made, add comment
 				
 				panelToAdd.add(Box.createRigidArea(new Dimension (36,1)));
 				JTextArea commentTextArea = new JTextArea(1,21);
+				Color backgroundColor = this.getBackground();
+				commentTextArea.setBackground(backgroundColor);
+				commentTextArea.setFont(commentTextArea.getFont().deriveFont(Font.BOLD));
 				commentTextArea.setAlignmentX(commentTextArea.LEFT_ALIGNMENT);
 				commentTextArea.setBorder(new LineBorder(Color.black, 1));
 				commentTextArea.setText(history.get(counter).comment);
@@ -175,9 +182,11 @@ public class HistoryScreen extends JFrame {
 				commentTextArea.setWrapStyleWord(true);
 				commentTextArea.setEditable(false);
 				panelToAdd.add(commentTextArea);
-			}			
-			infoPanel.add(panelToAdd);
-		}
+				totalHeight+= 35*commentTextArea.getLineCount();
+			}	
+			infoPanel.add(panelToAdd);	
+		}			
+		infoPanel.add(Box.createRigidArea(new Dimension (0, infoPanel.getHeight()-totalHeight)));
 		this.setVisible(false);
 		this.setVisible(true);
 	}
