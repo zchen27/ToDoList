@@ -87,7 +87,12 @@ public class Event extends AbstractEvent
 	{
 		return comment;
 	}
-
+	
+	public void setName(String name)
+	{
+		this.name = name;
+	}
+	
 	@Override
 	public void setHistory(History history)
 	{
