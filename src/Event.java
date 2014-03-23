@@ -31,13 +31,15 @@ public class Event extends AbstractEvent
 	@XmlElement(name = "history")
 	private History history = new History();
 	
+	private MainScreen mainScreen;
 	public Event()
 	{
 		
 	}
 	
-	public Event(String n)
+	public Event(String n, MainScreen ms)
 	{
+		mainScreen=ms;
 		name = n;
 		comment = "";
 		history = new History();
