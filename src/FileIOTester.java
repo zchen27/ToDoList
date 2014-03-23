@@ -1,12 +1,15 @@
 import java.text.*;
 import java.util.*;
 
+import javax.xml.bind.JAXBException;
+
 
 public class FileIOTester
 {
 	public static void main(String[] args)
 	{
 		MainScreen ms = new MainScreen();
+		
 		Event event0 = new Event("event0");
 		Event event1 = new Event("event1");
 		
@@ -42,18 +45,30 @@ public class FileIOTester
 		event1.setComment("commen_1");
 		event1.setDates(dates1[0], dates1[1], dates1[2]);
 		
+		event1.complete();
+		
 		EventList list = new EventList();
 		list.add(event0);
 		list.add(event1);
 
-		ms.si.updateEventList(list);
+		MainScreen.si.updateEventList(list);
 		
-		FileBackup f = new FileBackup(ms);
+		FileBackup f = new FileBackup();
 		f.makeBackup("file.xml");
 		
+<<<<<<< HEAD
+<<<<<<< HEAD
+		for (Event e: MainScreen.si.getEventList())
+=======
 		EventList list2 = f.loadBackup("file.xml");
 		System.out.println(list2.size());
 		for(Event e: list2)
+>>>>>>> 08aa127a42a5418b22f8717247594838c88cfdda
+=======
+		EventList list2 = f.loadBackup("file.xml");
+		System.out.println(list2.size());
+		for(Event e: list2)
+>>>>>>> 08aa127a42a5418b22f8717247594838c88cfdda
 		{
 			System.out.println("");
 			System.out.println("NAME: " + e.getName());

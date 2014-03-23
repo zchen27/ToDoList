@@ -43,7 +43,14 @@ public class Event extends AbstractEvent
 	
 	public Event(String n)
 	{
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
 >>>>>>> FETCH_HEAD
+>>>>>>> 08aa127a42a5418b22f8717247594838c88cfdda
+=======
+>>>>>>> FETCH_HEAD
+>>>>>>> 08aa127a42a5418b22f8717247594838c88cfdda
 		name = n;
 		comment = "";
 		history = new History();
