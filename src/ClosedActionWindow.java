@@ -10,7 +10,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 
 import javax.swing.BoxLayout;
@@ -21,6 +20,8 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
+
+import EventPanel.SubEventPanel;
 public class ClosedActionWindow extends JFrame implements MouseListener, ActionListener{
 	MainScreen mw;
 	JPanel contentPane;
@@ -31,7 +32,6 @@ public class ClosedActionWindow extends JFrame implements MouseListener, ActionL
 	JMenuItem completeItem;
 	JMenuItem editItem;
 	Point mouse;
-	ArrayList<SubEventPanel> eventPanels;
 	ClosedActionWindow(MainScreen mainScreen){
 		mw=mainScreen;
 		contentPane=new JPanel();
@@ -58,11 +58,9 @@ public class ClosedActionWindow extends JFrame implements MouseListener, ActionL
 		setResizable(false);
 		addMouseListener(this);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		System.out.println(MainScreen.si.getClosedList().size());
-		for(int i=MainScreen.si.getClosedList().size()-1;i>=0;i--){
+		for(int i=mw.si.getClosedList().size()-1;i>=0;i--){
 			System.out.println("test");
-			//eventPanels.add(new SubEventPanel(MainScreen.si.getClosedList().get(i)));
-			subPanel.add(new SubEventPanel(MainScreen.si.getClosedList().get(i)));
+			subPanel.add(new SubEventPanel(mw.si.getClosedList().get(i)));
 		}
 		contentPane.add(scrollPane);
 		scrollPane.setViewportView(subPanel);
@@ -77,14 +75,6 @@ public class ClosedActionWindow extends JFrame implements MouseListener, ActionL
 			setHorizontalAlignment(SwingConstants.CENTER);
 			setPreferredSize(getMinimumSize());
 		}
-		SubEventPanel(String s) {
-			setText(s);
-			setHorizontalAlignment(SwingConstants.CENTER);
-		}
-		private Event getEvent(){
-			return event;
-		}
-
 	}
 	
 	private class PopupListener extends MouseAdapter {
@@ -107,11 +97,11 @@ public class ClosedActionWindow extends JFrame implements MouseListener, ActionL
 		Point actualPoint=actualPoint(mouse);
 		Event e =((SubEventPanel) subPanel.getComponentAt(actualPoint)).getEvent();
 		if (event.getSource().equals(deleteItem)){
-			MainScreen.si.getClosedList().remove(e);
+			mw.si.getClosedList().remove(e);
 			refresh();
 		} else if (event.getSource().equals(completeItem)){
 		} else if (event.getSource().equals(editItem)){
-			new EditActionItem1(mw,e);
+			new EditActionItem(mw,e);
 		}
 		
 	}
@@ -132,24 +122,26 @@ public class ClosedActionWindow extends JFrame implements MouseListener, ActionL
 	
 	public void refresh() {
 		subPanel.removeAll();
-		for (int i = 0; i < mw.si.getClosedList().size(); i++) {
-			Event e = mw.si.getClosedList().get(i);
+		for (int i = 0; i < mainWindow.si.getEventList().size(); i++) {
+			Event e = mainWindow.si.getEventList().get(i);
 			if (e.getPriority() == e.INACTIVE) {
 				Calendar[] c = e.getDates();
 				DateFormat date = new SimpleDateFormat(
 						"MM/DD/YYYY G 'at' HH:mm:ss z");
 				String s = date.format(c[0]);
-				//eventPanels.add(new SubEventPanel(s));
+				eventPanels.add(new SubEventPanel(s));
 			}
-			subPanel.add(new SubEventPanel(e));
+			eventPanels.add(new SubEventPanel(e));
 		}
-		
+		for (int i = 0; i < eventPanels.size(); i++) {
+			panel.add(eventPanels.get(i));
+		}
 //		if(eventPanels.size()<21){
 //			panel.add(Box.createRigidArea(new Dimension(0,800-eventPanels.size()*40)));
 //		}
 		
-		mw.setVisible(false);
-		mw.setVisible(true);
+		mainWindow.setVisible(false);
+		mainWindow.setVisible(true);
 	}
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
