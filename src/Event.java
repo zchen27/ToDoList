@@ -48,22 +48,47 @@ public class Event extends AbstractEvent
 	public void setDates(GregorianCalendar dateEventual, GregorianCalendar dateCurrent, GregorianCalendar dateUrgent)
 	{
 		// TODO Auto-generated method stub
+		GregorianCalendar ds = new GregorianCalendar();
+		ds.setTimeInMillis(System.currentTimeMillis());
 		try
 		{
-			dateE = DatatypeFactory.newInstance().newXMLGregorianCalendar(dateEventual);
-			dateC = DatatypeFactory.newInstance().newXMLGregorianCalendar(dateCurrent);
-			dateU = DatatypeFactory.newInstance().newXMLGregorianCalendar(dateUrgent);
-			Calendar ds = Calendar.getInstance();
-			ds.setTimeInMillis(System.currentTimeMillis());
-			if(ds.compareTo(dateE.toGregorianCalendar()) < 0)
+			if(dateEventual != null)
 			{
-				priority = Event.INACTIVE;
+				dateE = DatatypeFactory.newInstance().newXMLGregorianCalendar(dateEventual);
 			}
+			else
+			{
+				dateE = DatatypeFactory.newInstance().newXMLGregorianCalendar(ds);
+			}
+			
+			if(dateCurrent != null)
+			{
+				dateC = DatatypeFactory.newInstance().newXMLGregorianCalendar(dateCurrent);
+			}
+			else
+			{
+				dateC = DatatypeFactory.newInstance().newXMLGregorianCalendar(ds);
+			}
+			
+			if(dateUrgent != null)
+			{
+				dateU = DatatypeFactory.newInstance().newXMLGregorianCalendar(dateUrgent);
+			}
+			else
+			{
+				dateU = DatatypeFactory.newInstance().newXMLGregorianCalendar(ds);
+			}
+			
 		} 
 		catch (DatatypeConfigurationException e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+		
+		if(dateE != null && ds.compareTo(dateE.toGregorianCalendar()) < 0)
+		{
+			priority = Event.INACTIVE;
 		}
 
 	}

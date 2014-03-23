@@ -22,6 +22,9 @@ import javax.swing.JTextField;
 
 import java.lang.Object;
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.awt.Container;
@@ -216,13 +219,14 @@ public class EditActionItem implements ActionListener, DocumentListener {
         } else if (toPriority.equals("Inactive")) {
             myEvent.setPriority(1);
         } else if (toPriority.equals("Completed")) {
-            myEvent.setPriority(0);
+            myEvent.complete();
         }
     }
 
     public void actionPerformed(ActionEvent e){
         if ("SAVE CHANGES".equals(e.getActionCommand())) {
             frame.dispose();
+            mainWindow.getEventPanel().refresh();
         }
         if ("COMMENT".equals(e.getActionCommand())) {
             viewComment();
@@ -269,38 +273,46 @@ public class EditActionItem implements ActionListener, DocumentListener {
             changePriority ("Completed");
         }
         
+        DateFormat format = new SimpleDateFormat("mm/dd/yyyy");
         String toUrgentFieldText = toUrgentField.getText();
-        String toUrgentFieldMonth = toUrgentFieldText.substring(0,1);
-        int urgentMonth = Integer.parseInt(toUrgentFieldMonth);
-        String toUrgentFieldDate = toUrgentFieldText.substring(3,4);
-        int urgentDate = Integer.parseInt(toUrgentFieldDate);
-        String toUrgentFieldYear = toUrgentFieldText.substring(6,7);
-        int urgentYear = Integer.parseInt(toUrgentFieldYear);
-        dateToUrgent.set(urgentYear, urgentMonth, urgentDate);
-        inToUrgentField = toUrgentFieldText;
-        toUrgentField.setText(inToUrgentField);
-        
+        if(toUrgentFieldText.length() != 0)
+        {
+        	
+        	try {
+				dateToUrgent.setTime(format.parse(toUrgentFieldText));
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+            inToUrgentField = toUrgentFieldText;
+            toUrgentField.setText(inToUrgentField);
+        }
+
         String toCurrentFieldText = toCurrentField.getText();
-        String toCurrentFieldMonth = toCurrentFieldText.substring(0,1);
-        int currentMonth = Integer.parseInt(toCurrentFieldMonth);
-        String toCurrentFieldDate = toCurrentFieldText.substring(3,4);
-        int currentDate = Integer.parseInt(toCurrentFieldDate);
-        String toCurrentFieldYear = toCurrentFieldText.substring(6,7);
-        int currentYear = Integer.parseInt(toCurrentFieldYear);
-        dateToCurrent.set(currentYear, currentMonth, currentDate);
-        inToCurrentField = toCurrentFieldText;
-        toCurrentField.setText(inToCurrentField);
+        if(toUrgentFieldText.length() != 0)
+        {
+        	try {
+				dateToCurrent.setTime(format.parse(toCurrentFieldText));
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+            inToCurrentField = toCurrentFieldText;
+            toCurrentField.setText(inToCurrentField);
+        }
         
         String toEventualFieldText = toEventualField.getText();
-        String toEventualFieldMonth = toEventualFieldText.substring(0,1);
-        int eventualMonth = Integer.parseInt(toCurrentFieldMonth);
-        String toEventualFieldDate = toEventualFieldText.substring(3,4);
-        int eventualDate = Integer.parseInt(toEventualFieldDate);
-        String toEventualFieldYear = toEventualFieldText.substring(6,7);
-        int eventualYear = Integer.parseInt(toEventualFieldYear);
-        dateToEventual.set(eventualYear, eventualMonth, eventualDate);
-        inToEventualField = toEventualFieldText;
-        toEventualField.setText(inToEventualField);
+        if(toUrgentFieldText.length() != 0)
+        {
+        	try {
+				dateToEventual.setTime(format.parse(toEventualFieldText));
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+            inToEventualField = toEventualFieldText;
+            toEventualField.setText(inToEventualField);
+        }
         
         myEvent.setDates(dateToEventual, dateToCurrent, dateToUrgent);
         

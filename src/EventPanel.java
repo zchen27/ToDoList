@@ -167,12 +167,13 @@ public class EventPanel extends JScrollPane implements MouseListener,ActionListe
 			setText(e.getName());
 			setHorizontalAlignment(SwingConstants.CENTER);
 			if (e.getPriority() == 0) {
-			} else if (e.getPriority() == 1) {
+			} else if (e.getPriority() == Event.EVENTUAL) {
 				setFont(this.getFont().deriveFont(Font.ITALIC));
-			} else if (e.getPriority() == 2) {
+			} else if (e.getPriority() == Event.INACTIVE) {
 				setFont(this.getFont().deriveFont(Font.ITALIC));
-			} else if (e.getPriority() == 3) {
-			} else if (e.getPriority() == 4) {
+			} else if (e.getPriority() == Event.CURRENT) {
+				setFont(this.getFont().deriveFont(Font.PLAIN));
+			} else if (e.getPriority() == Event.URGENT) {
 				setFont(this.getFont().deriveFont(Font.BOLD));
 			} else {
 				JFrame error = new JFrame("ERROR");
@@ -274,8 +275,8 @@ public class EventPanel extends JScrollPane implements MouseListener,ActionListe
 				Calendar[] c = e.getDates();
 				DateFormat date = new SimpleDateFormat(
 						"MM/DD/YYYY G 'at' HH:mm:ss z");
-				String s = date.format(c[0]);
-				eventPanels.add(new SubEventPanel(s));
+				String s = date.format(c[0].getTime());
+				//eventPanels.add(new SubEventPanel(s));
 			}
 			eventPanels.add(new SubEventPanel(e));
 		}
