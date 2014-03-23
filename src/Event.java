@@ -7,6 +7,15 @@ import javax.xml.datatype.*;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Event extends AbstractEvent
 {
+	@XmlElement(name = "name")
+	private String name;
+	
+	@XmlElement(name = "priority")
+	private int priority;
+	
+	@XmlElement(name = "comment")
+	private String comment;
+	
 	@XmlElement(name = "date_eventual")
 	private XMLGregorianCalendar dateE;
 	
@@ -19,11 +28,13 @@ public class Event extends AbstractEvent
 	@XmlElement(name = "date_completed")
 	private XMLGregorianCalendar dateCompleted;
 	
-	private History history;
-	private String comment;
-	private String name;
-	private int priority;
+	@XmlElement(name = "history")
+	private History history = new History();
 	
+	public Event()
+	{
+		
+	}
 	
 	public Event(String n)
 	{
@@ -148,6 +159,7 @@ public class Event extends AbstractEvent
 		}
 		priority = Event.CLOSED;
 	}
+	
 	
 	public GregorianCalendar dateCompleted()
 	{

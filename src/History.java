@@ -7,8 +7,8 @@ import javax.xml.bind.annotation.*;
 @XmlSeeAlso({HistoryEntry.class})
 public class History extends ArrayList <HistoryEntry> {
 	
-	@XmlElement(name = "event")
-	public List<HistoryEntry> getEventList()
+	@XmlElement(name = "history")
+	public List<HistoryEntry> getHistory()
 	{
 		return this;
 	}

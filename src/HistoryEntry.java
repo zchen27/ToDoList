@@ -10,11 +10,20 @@ import javax.xml.datatype.XMLGregorianCalendar;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class HistoryEntry {
 	
+	@XmlElement(name = "time")
 	private XMLGregorianCalendar time;
+	
+	@XmlElement(name = "comment")
 	private String comment;
+	
 	private int oldPriority;
+	
 	private int newPriority;
-	private StateInformation info;
+	
+	HistoryEntry()
+	{
+		
+	}
 	
 	HistoryEntry(GregorianCalendar inTime, int priority, int closed){
 		try {
@@ -25,6 +34,27 @@ public class HistoryEntry {
 		}
 		this.oldPriority = priority;
 		this.newPriority = closed;
+		
+		comment = "Priority changed from " + priorityConvert(priority) + " to " + priorityConvert(closed);
+	}
+	
+	private String priorityConvert(int priority)
+	{
+		switch(priority)
+		{
+			case 0:
+				return "CLOSED";
+			case 1:
+				return "INACTIVE";
+			case 2:
+				return "EVENTUAL";
+			case 3:
+				return "CURRENT";
+			case 4:
+				return "URGENT";
+			default:
+				return null;
+		}
 	}
 	
 	HistoryEntry(GregorianCalendar inTime, String initalComment){
@@ -34,7 +64,7 @@ public class HistoryEntry {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		comment= initalComment;
+		comment= "Comment set to " + initalComment;
 	}
 	
 	public String getComment(){
