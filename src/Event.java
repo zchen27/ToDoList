@@ -46,6 +46,7 @@ public class Event extends AbstractEvent
 		priority = URGENT;
 	}
 	
+	
 	@Override
 	public void setDates(GregorianCalendar dateEventual, GregorianCalendar dateCurrent, GregorianCalendar dateUrgent)
 	{
