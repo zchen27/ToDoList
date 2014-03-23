@@ -31,15 +31,13 @@ public class Event extends AbstractEvent
 	@XmlElement(name = "history")
 	private History history = new History();
 	
-	private MainScreen mainScreen;
 	public Event()
 	{
 		
 	}
 	
-	public Event(String n, MainScreen ms)
+	public Event(String n)
 	{
-		mainScreen=ms;
 		name = n;
 		comment = "";
 		history = new History();
@@ -150,6 +148,8 @@ public class Event extends AbstractEvent
 		GregorianCalendar ds = (GregorianCalendar) Calendar.getInstance();
 		ds.setTimeInMillis(System.currentTimeMillis());
 		history.add(new HistoryEntry(ds, priority, Event.CLOSED));
+		MainScreen.si.getEventList().remove(this);
+		MainScreen.si.getClosedList().add(this);
 		try
 		{
 			dateCompleted = DatatypeFactory.newInstance().newXMLGregorianCalendar(ds);
