@@ -150,6 +150,7 @@ public class Event extends AbstractEvent
 		history.add(new HistoryEntry(ds, priority, Event.CLOSED));
 		MainScreen.si.getEventList().remove(this);
 		MainScreen.si.getClosedList().add(this);
+		System.out.println(MainScreen.si.getClosedList().size());
 		try
 		{
 			dateCompleted = DatatypeFactory.newInstance().newXMLGregorianCalendar(ds);
