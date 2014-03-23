@@ -13,9 +13,37 @@ public class Event extends AbstractEvent
 	private int priority;
 	private MainScreen ms;
 	
+<<<<<<< HEAD
 	public Event(String n, MainScreen mainScreen)
 	{
 		ms=mainScreen;
+=======
+	@XmlElement(name = "comment")
+	private String comment;
+	
+	@XmlElement(name = "date_eventual")
+	private XMLGregorianCalendar dateE;
+	
+	@XmlElement(name = "date_current")
+	private XMLGregorianCalendar dateC;
+	
+	@XmlElement(name = "date_urgent")
+	private XMLGregorianCalendar dateU;
+	
+	@XmlElement(name = "date_completed")
+	private XMLGregorianCalendar dateCompleted;
+	
+	@XmlElement(name = "history")
+	private History history = new History();
+	
+	public Event()
+	{
+		
+	}
+	
+	public Event(String n)
+	{
+>>>>>>> FETCH_HEAD
 		name = n;
 		comment = "";
 		history = new History();
@@ -116,7 +144,22 @@ public class Event extends AbstractEvent
 		Calendar ds = Calendar.getInstance();
 		ds.setTimeInMillis(System.currentTimeMillis());
 		history.add(new HistoryEntry(ds, priority, Event.CLOSED));
+<<<<<<< HEAD
 		dateCompleted = ds;
+=======
+		MainScreen.si.getEventList().remove(this);
+		MainScreen.si.getClosedList().add(this);
+		System.out.println(MainScreen.si.getClosedList().size());
+		try
+		{
+			dateCompleted = DatatypeFactory.newInstance().newXMLGregorianCalendar(ds);
+		}
+		catch (DatatypeConfigurationException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+>>>>>>> FETCH_HEAD
 		priority = Event.CLOSED;
 		ms.si.getEventList().remove(this);
 		ms.si.getClosedList().add(this);
