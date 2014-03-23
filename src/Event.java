@@ -144,7 +144,9 @@ public class Event extends AbstractEvent
 	
 	@Override
 	public void complete()
-	{
+	{	
+		MainScreen.si.getEventList().remove(this);
+		MainScreen.si.getClosedList().add(this);
 		GregorianCalendar ds = (GregorianCalendar) Calendar.getInstance();
 		ds.setTimeInMillis(System.currentTimeMillis());
 		history.add(new HistoryEntry(ds, priority, Event.CLOSED));

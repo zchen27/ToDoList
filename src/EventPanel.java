@@ -51,7 +51,7 @@ public class EventPanel extends JScrollPane implements MouseListener,ActionListe
 		mainWindow = mw;
 		panel = new JPanel();
 		eventPanels = new ArrayList<SubEventPanel>();
-		panel.setLayout(new GridLayout(50, 1));
+		panel.setLayout(new GridLayout(45, 1));
 		addMouseListener(this);
 		popup = new JPopupMenu();
 		deleteItem = new JMenuItem("Delete Item");
@@ -262,11 +262,14 @@ public class EventPanel extends JScrollPane implements MouseListener,ActionListe
 	}
 
 	public void refresh() {
+		if(MainScreen.si.getEventList().size()>45){
+			panel.setLayout(new GridLayout(0, 1));
+		}
 		eventPanels.removeAll(eventPanels);
 
 		panel.removeAll();
-		for (int i = 0; i < mainWindow.si.getEventList().size(); i++) {
-			Event e = mainWindow.si.getEventList().get(i);
+		for (int i = 0; i < MainScreen.si.getEventList().size(); i++) {
+			Event e = MainScreen.si.getEventList().get(i);
 			if (e.getPriority() == e.INACTIVE) {
 				Calendar[] c = e.getDates();
 				DateFormat date = new SimpleDateFormat(

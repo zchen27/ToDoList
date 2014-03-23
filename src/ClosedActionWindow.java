@@ -20,9 +20,8 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
-
-import EventPanel.SubEventPanel;
 public class ClosedActionWindow extends JFrame implements MouseListener, ActionListener{
+	private static final long serialVersionUID = -2916743089304098813L;
 	MainScreen mw;
 	JPanel contentPane;
 	JScrollPane scrollPane;
@@ -52,7 +51,7 @@ public class ClosedActionWindow extends JFrame implements MouseListener, ActionL
 		scrollPane.addMouseListener(popupListener);
 		setContentPane(contentPane);
 		contentPane.setLayout(new BoxLayout(contentPane,BoxLayout.Y_AXIS));
-		subPanel.setLayout(new GridLayout(50, 1));
+		subPanel.setLayout(new GridLayout(35, 1));
 		setSize(400,600);
 		setLocation(50,50);
 		setResizable(false);
@@ -74,6 +73,9 @@ public class ClosedActionWindow extends JFrame implements MouseListener, ActionL
 			setText(e.getName());
 			setHorizontalAlignment(SwingConstants.CENTER);
 			setPreferredSize(getMinimumSize());
+		}
+		private Event getEvent(){
+			return event;
 		}
 	}
 	
@@ -121,27 +123,28 @@ public class ClosedActionWindow extends JFrame implements MouseListener, ActionL
 	}
 	
 	public void refresh() {
+		if(MainScreen.si.getEventList().size()>35){
+			subPanel.setLayout(new GridLayout(0, 1));
+		}
 		subPanel.removeAll();
-		for (int i = 0; i < mainWindow.si.getEventList().size(); i++) {
-			Event e = mainWindow.si.getEventList().get(i);
+		for (int i = 0; i < MainScreen.si.getClosedList().size(); i++) {
+			Event e = MainScreen.si.getClosedList().get(i);
 			if (e.getPriority() == e.INACTIVE) {
 				Calendar[] c = e.getDates();
 				DateFormat date = new SimpleDateFormat(
 						"MM/DD/YYYY G 'at' HH:mm:ss z");
 				String s = date.format(c[0]);
-				eventPanels.add(new SubEventPanel(s));
+				//eventPanels.add(new SubEventPanel(s));
 			}
-			eventPanels.add(new SubEventPanel(e));
+			subPanel.add(new SubEventPanel(e));
 		}
-		for (int i = 0; i < eventPanels.size(); i++) {
-			panel.add(eventPanels.get(i));
-		}
+		
 //		if(eventPanels.size()<21){
 //			panel.add(Box.createRigidArea(new Dimension(0,800-eventPanels.size()*40)));
 //		}
 		
-		mainWindow.setVisible(false);
-		mainWindow.setVisible(true);
+		mw.setVisible(false);
+		mw.setVisible(true);
 	}
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
