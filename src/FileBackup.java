@@ -10,6 +10,7 @@ import javax.xml.bind.Unmarshaller;
 
 public class FileBackup extends AbstractFileBackup
 {
+	private MainScreen window;
 	
 	/*
 	 * Creates backup at the location indicated with the list
@@ -17,9 +18,9 @@ public class FileBackup extends AbstractFileBackup
 	 * Post: Current EventList is created at the indicated directory with a name
 	 */
 	
-	FileBackup()
+	FileBackup(MainScreen window)
 	{
-		
+		this.window = window;
 	}
 	
 	/*
@@ -27,18 +28,24 @@ public class FileBackup extends AbstractFileBackup
 	 * @see AbstractFileBackup#makeBackup(java.lang.String)
 	 */
 	@Override
-	public void makeBackup(String location) throws JAXBException
+	public void makeBackup(String location)
 	{
-		// TODO FINISH THIS GOD DAMNED THING ALREADY
+		File file = new File(location);
 		
-		EventList events = MainScreen.si.getEventList();
-		File backup = new File(location);
-		
-		JAXBContext jc = JAXBContext.newInstance(EventList.class);
-		Marshaller marshaller = jc.createMarshaller();
+		try
+		{
+			JAXBContext jc = JAXBContext.newInstance(EventList.class);
+			EventList events = MainScreen.si.getEventList();
 			
-		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-		marshaller.marshal(events, backup);
+			Marshaller marshaller = jc.createMarshaller();
+			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+			marshaller.marshal(events, file);
+		}
+		catch (JAXBException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
@@ -47,18 +54,24 @@ public class FileBackup extends AbstractFileBackup
 	 * @see AbstractFileBackup#loadBackup(java.lang.String)
 	 */
 	@Override
-	public void loadBackup(String location) throws JAXBException
+	public void loadBackup(String location) 
 	{
-		EventList events = new EventList();
-		File backup = new File(location);
+		File file = new File(location);
 		
-		JAXBContext jc = JAXBContext.newInstance(EventList.class);
-		Unmarshaller unmarshaller = jc.createUnmarshaller();
+		try
+		{
+			JAXBContext jc = JAXBContext.newInstance(EventList.class);
 			
-		unmarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-		events = (EventList) unmarshaller.unmarshal(backup);
+			Unmarshaller unmarshaller = jc.createUnmarshaller();
+			EventList events = (EventList) unmarshaller.unmarshal(file);
+			MainScreen.si.updateEventList(events);
+		}
+		catch (JAXBException e)
+		{
+			//TODO Auto-generated catch block
 			
-		MainScreen.si.updateEventList(events);
-
+		}
+		
 	}
+
 }

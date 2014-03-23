@@ -1,23 +1,18 @@
-import java.util.Calendar;
+import java.util.*;
+
+import javax.xml.bind.annotation.*;
+import javax.xml.datatype.*;
 
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Event extends AbstractEvent
 {
-	private Calendar dateE;
-	private Calendar dateC;
-	private Calendar dateU;
-	private Calendar dateCompleted = null;
-	private History history;
-	private String comment;
+	@XmlElement(name = "name")
 	private String name;
-	private int priority;
-	private MainScreen ms;
 	
-<<<<<<< HEAD
-	public Event(String n, MainScreen mainScreen)
-	{
-		ms=mainScreen;
-=======
+	@XmlElement(name = "priority")
+	private int priority;
+	
 	@XmlElement(name = "comment")
 	private String comment;
 	
@@ -43,34 +38,34 @@ public class Event extends AbstractEvent
 	
 	public Event(String n)
 	{
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> FETCH_HEAD
->>>>>>> 08aa127a42a5418b22f8717247594838c88cfdda
-=======
->>>>>>> FETCH_HEAD
->>>>>>> 08aa127a42a5418b22f8717247594838c88cfdda
 		name = n;
 		comment = "";
 		history = new History();
 		priority = URGENT;
 	}
 	
-	
 	@Override
-	public void setDates(Calendar dateEventual, Calendar dateCurrent, Calendar dateUrgent)
+	public void setDates(GregorianCalendar dateEventual, GregorianCalendar dateCurrent, GregorianCalendar dateUrgent)
 	{
 		// TODO Auto-generated method stub
-		dateE = dateEventual;
-		dateC = dateCurrent;
-		dateU = dateUrgent;
-		Calendar ds = Calendar.getInstance();
-		ds.setTimeInMillis(System.currentTimeMillis());
-		if(ds.compareTo(dateE) < 0)
+		try
 		{
-			priority = Event.INACTIVE;
+			dateE = DatatypeFactory.newInstance().newXMLGregorianCalendar(dateEventual);
+			dateC = DatatypeFactory.newInstance().newXMLGregorianCalendar(dateCurrent);
+			dateU = DatatypeFactory.newInstance().newXMLGregorianCalendar(dateUrgent);
+			Calendar ds = Calendar.getInstance();
+			ds.setTimeInMillis(System.currentTimeMillis());
+			if(ds.compareTo(dateE.toGregorianCalendar()) < 0)
+			{
+				priority = Event.INACTIVE;
+			}
+		} 
+		catch (DatatypeConfigurationException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+
 	}
 
 	@Override
@@ -82,7 +77,7 @@ public class Event extends AbstractEvent
 			comment = "THIS COMMENT HAS BEEN DELETED";
 		}
 		comment = newcomment;
-		Calendar ds = Calendar.getInstance();
+		GregorianCalendar ds = new GregorianCalendar();
 		ds.setTimeInMillis(System.currentTimeMillis());
 		history.add(new HistoryEntry(ds, newcomment));
 	}
@@ -95,13 +90,13 @@ public class Event extends AbstractEvent
 	}
 
 	@Override
-	public Calendar[] getDates()
+	public GregorianCalendar[] getDates()
 	{
 		// TODO Auto-generated method stub
-		Calendar[] dates = new Calendar[3];
-		dates[0] = dateE;
-		dates[1] = dateC;
-		dates[2] = dateU;
+		GregorianCalendar[] dates = new GregorianCalendar[3];
+		dates[0] = dateE.toGregorianCalendar();
+		dates[1] = dateC.toGregorianCalendar();
+		dates[2] = dateU.toGregorianCalendar();
 		return dates;
 	}
 
@@ -119,12 +114,13 @@ public class Event extends AbstractEvent
 		return name;
 	}
 	
-	
+	@Override
 	public String getComment()
 	{
 		return comment;
 	}
 	
+	@Override
 	public void setName(String name)
 	{
 		this.name = name;
@@ -140,23 +136,18 @@ public class Event extends AbstractEvent
 	@Override
 	public void setPriority(int newPriority)
 	{
-		Calendar ds = Calendar.getInstance();
+		GregorianCalendar ds = new GregorianCalendar();
 		ds.setTimeInMillis(System.currentTimeMillis());
 		history.add(new HistoryEntry(ds, priority, newPriority));
 		priority = newPriority;
 	}
 	
+	@Override
 	public void complete()
 	{
-		Calendar ds = Calendar.getInstance();
+		GregorianCalendar ds = (GregorianCalendar) Calendar.getInstance();
 		ds.setTimeInMillis(System.currentTimeMillis());
 		history.add(new HistoryEntry(ds, priority, Event.CLOSED));
-<<<<<<< HEAD
-		dateCompleted = ds;
-=======
-		MainScreen.si.getEventList().remove(this);
-		MainScreen.si.getClosedList().add(this);
-		System.out.println(MainScreen.si.getClosedList().size());
 		try
 		{
 			dateCompleted = DatatypeFactory.newInstance().newXMLGregorianCalendar(ds);
@@ -166,16 +157,13 @@ public class Event extends AbstractEvent
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
->>>>>>> FETCH_HEAD
 		priority = Event.CLOSED;
-		ms.si.getEventList().remove(this);
-		ms.si.getClosedList().add(this);
-		
 	}
 	
-	public Calendar dateCompleted()
+	
+	public GregorianCalendar dateCompleted()
 	{
-		return dateCompleted;
+		return dateCompleted.toGregorianCalendar();
 	}
 
 }

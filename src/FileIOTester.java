@@ -1,25 +1,22 @@
 import java.text.*;
 import java.util.*;
 
-import javax.xml.bind.JAXBException;
-
 
 public class FileIOTester
 {
 	public static void main(String[] args)
 	{
 		MainScreen ms = new MainScreen();
-		
 		Event event0 = new Event("event0");
 		Event event1 = new Event("event1");
 		
 		DateFormat format = new SimpleDateFormat("MM/DD/YYYY G 'at' HH:mm:ss z");
-		Calendar eventual0 = Calendar.getInstance();
-		Calendar current0 = Calendar.getInstance();
-		Calendar urgent0 = Calendar.getInstance();
-		Calendar eventual1 = Calendar.getInstance();
-		Calendar current1 = Calendar.getInstance();
-		Calendar urgent1 = Calendar.getInstance();
+		GregorianCalendar eventual0 = new GregorianCalendar();
+		GregorianCalendar current0 = new GregorianCalendar();
+		GregorianCalendar urgent0 = new GregorianCalendar();
+		GregorianCalendar eventual1 = new GregorianCalendar();
+		GregorianCalendar current1 = new GregorianCalendar();
+		GregorianCalendar urgent1 = new GregorianCalendar();
 		try
 		{
 			eventual0.setTime(format.parse("09/02/1996 AD at 16:16:04 EST"));
@@ -34,8 +31,8 @@ public class FileIOTester
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		Calendar[] dates0 = {eventual0, current0, urgent0};
-		Calendar[] dates1 = {eventual1, current1, urgent1};
+		GregorianCalendar[] dates0 = {eventual0, current0, urgent0};
+		GregorianCalendar[] dates1 = {eventual1, current1, urgent1};
 		
 		event0.setPriority(Event.EVENTUAL);
 		event0.setComment("comment_0");
@@ -45,38 +42,28 @@ public class FileIOTester
 		event1.setComment("commen_1");
 		event1.setDates(dates1[0], dates1[1], dates1[2]);
 		
-		event1.complete();
-		
 		EventList list = new EventList();
 		list.add(event0);
 		list.add(event1);
 
-		MainScreen.si.updateEventList(list);
+		ms.si.updateEventList(list);
 		
-		FileBackup f = new FileBackup();
+		FileBackup f = new FileBackup(ms);
 		f.makeBackup("file.xml");
+		System.out.println("Backup made");
+		f.loadBackup("file.xml");
+		System.out.println("Backup loaded");
 		
-<<<<<<< HEAD
-<<<<<<< HEAD
-		for (Event e: MainScreen.si.getEventList())
-=======
-		EventList list2 = f.loadBackup("file.xml");
-		System.out.println(list2.size());
-		for(Event e: list2)
->>>>>>> 08aa127a42a5418b22f8717247594838c88cfdda
-=======
-		EventList list2 = f.loadBackup("file.xml");
-		System.out.println(list2.size());
-		for(Event e: list2)
->>>>>>> 08aa127a42a5418b22f8717247594838c88cfdda
+		for (Event e: ms.si.getEventList())
 		{
-			System.out.println("");
-			System.out.println("NAME: " + e.getName());
-			System.out.println("PRIORITY: " + e.getPriority());
-			System.out.println("COMMENT: " + e.getComment());
-			System.out.println("DATE_E: " + format.format(e.getDates()[0].getTime()));
-			System.out.println("DATE_C: " + format.format(e.getDates()[1].getTime()));
-			System.out.println("DATE_U: " + format.format(e.getDates()[2].getTime()));
+			System.out.println(e.getName());
+			System.out.println(e.getPriority());
+			System.out.println(e.getComment());
+			History h = e.getHistory();
+			for (HistoryEntry he: h)
+			{
+				System.out.println("\t" + he.getComment());
+			}
 		}
 	}
 }
