@@ -44,6 +44,8 @@ public class CommentWindow extends JFrame implements ActionListener{
 		scrollPane.setHorizontalScrollBarPolicy(scrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setVerticalScrollBarPolicy(scrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		contentPane.add(scrollPane);
+		
+		this.setAlwaysOnTop(true);
 
 		commit = new JButton("Commit");
 		commit.setActionCommand("commit");

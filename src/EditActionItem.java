@@ -56,7 +56,7 @@ public class EditActionItem implements ActionListener, DocumentListener {
     String inToCurrentField = "";
     String inToUrgentField = "";
 
-    public EditActionItem (MainScreen theMainWindow, Event e) {
+    public EditActionItem (MainScreen theMainWindow, Event theEvent) {
         frame = new JFrame("Edit Item");
         frame.setLocationRelativeTo(null);
         frame.setBounds(0,0,0,0);
@@ -69,12 +69,13 @@ public class EditActionItem implements ActionListener, DocumentListener {
         frame.pack();
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setAlwaysOnTop(true);
 
         mainWindow = theMainWindow;
         information = mainWindow.si;
-        myEvent = e;
-        eventName = e.getName();
-        currentPriority = e.getPriority();
+        myEvent = theEvent;
+        eventName = theEvent.getName();
+        currentPriority = theEvent.getPriority();
         itemName();
         addJRadioButtons();
         addJCheckBoxes();

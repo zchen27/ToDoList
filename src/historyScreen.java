@@ -25,6 +25,7 @@ public class HistoryScreen extends JFrame {
 		this.setVisible(true);
 		this.setSize(600, 700);				
 		this.setResizable(false);
+		this.setAlwaysOnTop(true);
 		
 		// Cateogory Panel contains labels of the categories
 		CategoryPanel = new JPanel();		
