@@ -25,6 +25,17 @@ public class HistoryEntry {
 		
 	}
 	
+	HistoryEntry(GregorianCalendar inTime, String oldName, String newName)
+	{
+		try {
+			this.time=DatatypeFactory.newInstance().newXMLGregorianCalendar(inTime);
+		} catch (DatatypeConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		comment = "Name changed from " + oldName + " to " + newName;
+	}
+	
 	HistoryEntry(GregorianCalendar inTime, int priority, int closed){
 		try {
 			this.time=DatatypeFactory.newInstance().newXMLGregorianCalendar(inTime);

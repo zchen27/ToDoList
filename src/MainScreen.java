@@ -109,7 +109,11 @@ public class MainScreen extends JFrame implements MouseListener, KeyListener{
 		
 	}
 	public static void main(String[] args){
+		try{
 		new MainScreen();
+		}catch(Exception e){
+			
+		}
 	}
 
 }

@@ -146,9 +146,13 @@ public class Event extends AbstractEvent
 	}
 	
 	@Override
-	public void setName(String name)
+	public void setName(String newName)
 	{
-		this.name = name;
+		GregorianCalendar ds = new GregorianCalendar();
+		ds.setTimeInMillis(System.currentTimeMillis());
+		history.add(new HistoryEntry(ds, name, newName));
+		this.name = newName;
+		
 	}
 	
 	@Override

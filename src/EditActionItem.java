@@ -279,7 +279,8 @@ public class EditActionItem implements ActionListener, DocumentListener {
         {
         	
         	try {
-				dateToUrgent.setTime(format.parse(toUrgentFieldText));
+        		System.out.println(toUrgentFieldText);
+        		dateToUrgent.setTime(format.parse(toUrgentFieldText));
 			} catch (ParseException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
