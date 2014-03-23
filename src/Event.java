@@ -165,6 +165,9 @@ public class Event extends AbstractEvent
 		ds.setTimeInMillis(System.currentTimeMillis());
 		history.add(new HistoryEntry(ds, priority, newPriority));
 		priority = newPriority;
+		MainScreen.si.getEventList().remove(this);
+		MainScreen.si.getClosedList().remove(this);
+		MainScreen.si.getEventList().add(this);
 	}
 	
 	@Override

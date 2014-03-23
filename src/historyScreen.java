@@ -124,20 +124,20 @@ public class HistoryScreen extends JFrame {
 
 			//Date and Time have been added, now determining priority change or comment
 						
-			if(history.get(counter).comment==null){
+			if(history.get(counter).getComment()==null){
 				//comment empty, it is a priority change, interprets bytes to create message
 
 				String oldPriorityString = "";
 				String newPriorityString = "";
-				if(history.get(counter).oldPriority==0){
+				if(history.get(counter).getOldPriority()==0){
 					oldPriorityString = "Completed";
-				} else if (history.get(counter).oldPriority==1){
+				} else if (history.get(counter).getOldPriority()==1){
 					oldPriorityString = "Inactive";
-				} else if (history.get(counter).oldPriority==2){
+				} else if (history.get(counter).getOldPriority()==2){
 					oldPriorityString = "Eventual";
-				} else if (history.get(counter).oldPriority==3){
+				} else if (history.get(counter).getOldPriority()==3){
 					oldPriorityString = "Current";
-				} else if (history.get(counter).oldPriority==4){
+				} else if (history.get(counter).getOldPriority()==4){
 					oldPriorityString = "Urgent";
 				} else {
 					JFrame error = new JFrame();
@@ -146,15 +146,15 @@ public class HistoryScreen extends JFrame {
 					error.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 				}
 				
-				if(history.get(counter).newPriority==0){
+				if(history.get(counter).getNewPriority()==0){
 					newPriorityString = "Completed";
-				} else if (history.get(counter).newPriority==1){
+				} else if (history.get(counter).getNewPriority()==1){
 					newPriorityString = "Inactive";
-				} else if (history.get(counter).newPriority==2){
+				} else if (history.get(counter).getNewPriority()==2){
 					newPriorityString = "Eventual";
-				} else if (history.get(counter).newPriority==3){
+				} else if (history.get(counter).getNewPriority()==3){
 					newPriorityString = "Current";
-				} else if (history.get(counter).newPriority==4){
+				} else if (history.get(counter).getNewPriority()==4){
 					newPriorityString = "Urgent";
 				} else {
 					JFrame error = new JFrame();
@@ -178,7 +178,7 @@ public class HistoryScreen extends JFrame {
 				commentTextArea.setFont(commentTextArea.getFont().deriveFont(Font.BOLD));
 				commentTextArea.setAlignmentX(commentTextArea.LEFT_ALIGNMENT);
 				commentTextArea.setBorder(new LineBorder(Color.black, 1));
-				commentTextArea.setText(history.get(counter).comment);
+				commentTextArea.setText(history.get(counter).getComment());
 				commentTextArea.setLineWrap(true);
 				commentTextArea.setWrapStyleWord(true);
 				commentTextArea.setEditable(false);
