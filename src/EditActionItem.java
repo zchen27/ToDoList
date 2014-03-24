@@ -55,9 +55,9 @@ public class EditActionItem implements ActionListener, DocumentListener {
     private JButton comment, history, print, save;
     private JLabel monthToUrgent, monthToCurrent, monthToEventual;
     static StateInformation information;
-    String inToEventualField = "";
-    String inToCurrentField = "";
-    String inToUrgentField = "";
+    String inToEventualField;
+    String inToCurrentField;
+    String inToUrgentField;
 
     public EditActionItem (MainScreen theMainWindow, Event theEvent) {
         frame = new JFrame("Edit Item");
@@ -183,6 +183,7 @@ public class EditActionItem implements ActionListener, DocumentListener {
     }
     private void addJTextFields() {
         // add JTextFields that allow user to set date of future priority changes
+    	
         toEventualField = new JTextField(inToEventualField);
         toCurrentField = new JTextField(inToCurrentField);
         toUrgentField = new JTextField(inToUrgentField);
@@ -208,6 +209,8 @@ public class EditActionItem implements ActionListener, DocumentListener {
         monthToCurrent.setBounds(360, 155, 100, 20);
         contentPane.add(monthToEventual);
         monthToEventual.setBounds(360, 125, 100, 20);
+        
+    	
     }
     public void changePriority (String toPriority) {
         if (toPriority.equals("Urgent")) {
@@ -263,14 +266,29 @@ public class EditActionItem implements ActionListener, DocumentListener {
         }
         if ("Urgent".equals(e.getActionCommand())) {
             changePriority ("Urgent");
+            toUrgentBox.setEnabled(false);
+            toCurrentBox.setEnabled(false);
+            toEventualBox.setEnabled(false);
         } else if ("Eventual".equals(e.getActionCommand())) {
             changePriority ("Eventual");
+            toUrgentBox.setEnabled(true);
+            toCurrentBox.setEnabled(true);
+            toEventualBox.setEnabled(false);
         } else if ("Current".equals(e.getActionCommand())) {
             changePriority ("Current");
+            toUrgentBox.setEnabled(true);
+            toCurrentBox.setEnabled(false);
+            toEventualBox.setEnabled(false);
         } else if ("Inactive".equals(e.getActionCommand())) {
             changePriority ("Inactive");
+            toUrgentBox.setEnabled(true);
+            toCurrentBox.setEnabled(true);
+            toEventualBox.setEnabled(true);
         } else if ("Completed".equals(e.getActionCommand())) {
             changePriority ("Completed");
+            toUrgentBox.setEnabled(true);
+            toCurrentBox.setEnabled(true);
+            toEventualBox.setEnabled(true);
         }
         
         DateFormat format = new SimpleDateFormat("mm/dd/yyyy");
@@ -315,9 +333,7 @@ public class EditActionItem implements ActionListener, DocumentListener {
         }
         
         myEvent.setDates(dateToEventual, dateToCurrent, dateToUrgent);
-        
-        // don't let dates be earlier than another, no downgrade a priority...
-        
+                
     }                      
     public void viewComment(){
         CommentWindow eventComment = new CommentWindow (mainWindow, eventName, eventIndex);
