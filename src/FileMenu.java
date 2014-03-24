@@ -41,9 +41,9 @@ public class FileMenu extends AbstractFileMenu implements ActionListener{
 		int returnVal=load.showOpenDialog(this);
 		if (returnVal==JFileChooser.APPROVE_OPTION){
 			File backup=load.getSelectedFile();
-			fileBackup.loadBackup(backup.getAbsolutePath());
+			EventList list=fileBackup.loadBackup(backup.getAbsolutePath());
+			mainWindow.si.updateEventList(list);
 		}
-		mainWindow.getEventPanel().refresh();
 	}
 
 	
@@ -75,7 +75,7 @@ public class FileMenu extends AbstractFileMenu implements ActionListener{
 		add(printItem);
 		printWindow=PrinterJob.getPrinterJob();
 		saveFilter=new FileNameExtensionFilter("Folders"," ");
-		backupFilter=new FileNameExtensionFilter("XML Files","xml");
+		backupFilter=new FileNameExtensionFilter("XML Files",".xml");
 		save=new JFileChooser("Create Backup");
 		save.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		save.setApproveButtonMnemonic(JFileChooser.SAVE_DIALOG);
