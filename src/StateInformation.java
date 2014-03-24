@@ -25,33 +25,13 @@ public class StateInformation extends AbstractStateInformation
 		// TODO Auto-generated method stub
 		synchronized(this)
 		{
-			EventList urgent=new EventList();
-			EventList current=new EventList();
-			EventList eventual=new EventList();
-			EventList inactive=new EventList();
 			for(int i=0;i<newevents.size();i++){
-				if(newevents.get(i).getPriority()==Event.URGENT){
-					urgent.add(newevents.get(i));
-				}else if(newevents.get(i).getPriority()==Event.CURRENT){
-						current.add(newevents.get(i));
-				}else if(newevents.get(i).getPriority()==Event.EVENTUAL){
-					eventual.add(newevents.get(i));
-				}else if(newevents.get(i).getPriority()==Event.INACTIVE){
-					inactive.add(newevents.get(i));
-				}else if(newevents.get(i).getPriority()==Event.CLOSED){
+				if(newevents.get(i).getPriority()==Event.CLOSED){
 					completed.add(newevents.get(i));
 				}
 			}
-			urgent = sort(urgent);
-			current = sort(current);
-			eventual = sort(eventual);
-			inactive = sort(inactive);
+			
 			completed = sort(completed);
-			events=new EventList();
-			events.addAll(urgent);
-			events.addAll(current);
-			events.addAll(eventual);
-			events.addAll(inactive);
 		}
 	}
 	
