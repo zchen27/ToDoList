@@ -199,9 +199,9 @@ public class EditActionItem implements ActionListener, DocumentListener {
         toEventualField.addActionListener(this);
         toCurrentField.addActionListener(this);
         toUrgentField.addActionListener(this);
-        monthToUrgent = new JLabel ("(MM/DD/YY)");
-        monthToCurrent = new JLabel ("(MM/DD/YY)");
-        monthToEventual = new JLabel ("(MM/DD/YY)");
+        monthToUrgent = new JLabel ("(MM/DD/YYYY)");
+        monthToCurrent = new JLabel ("(MM/DD/YYYY)");
+        monthToEventual = new JLabel ("(MM/DD/YYYY)");
 
         contentPane.add(monthToUrgent);
         monthToUrgent.setBounds(360, 185, 100, 20);
