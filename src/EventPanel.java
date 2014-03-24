@@ -148,6 +148,11 @@ public class EventPanel extends JScrollPane implements MouseListener,ActionListe
 				newList.add(eventPanels.get(i));
 			}
 		}
+		if(mover.getEvent().getPriority()<eventPanels.get(newSpot+2).getEvent().getPriority()){
+			mover.getEvent().setPriority(eventPanels.get(newSpot+2).getEvent().getPriority());
+		}else if(mover.getEvent().getPriority()>eventPanels.get(newSpot).getEvent().getPriority()){
+			mover.getEvent().setPriority(eventPanels.get(newSpot).getEvent().getPriority());
+		}
 		eventPanels = newList;
 		EventList e=new EventList();
 		for(int i=0;i<eventPanels.size();i++){
