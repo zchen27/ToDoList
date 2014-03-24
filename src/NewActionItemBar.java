@@ -46,7 +46,10 @@ public class NewActionItemBar extends JPanel implements KeyListener{
 		if (!newActionItemBox.getText().equals("")){
 			eventName=newActionItemBox.getText();
 			Event e = new Event(eventName);
-			mainWindow.si.getEventList().add(e);
+			EventList newList=new EventList();
+			newList.add(e);
+			newList.addAll(MainScreen.si.getEventList());
+			MainScreen.si.updateEventList(newList);
 		}
 		//System.out.println(eventName);
 		newActionItemBox.setText("");

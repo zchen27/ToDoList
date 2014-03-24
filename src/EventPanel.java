@@ -149,11 +149,11 @@ public class EventPanel extends JScrollPane implements MouseListener,ActionListe
 			}
 		}
 		eventPanels = newList;
-		// mainWindow.si.updateEventList()
-		panel.removeAll();
-		for (int i = 0; i < eventPanels.size(); i++) {
-			panel.add(eventPanels.get(i));
+		EventList e=new EventList();
+		for(int i=0;i<eventPanels.size();i++){
+			e.add(eventPanels.get(i).getEvent());
 		}
+		MainScreen.si.updateEventList(e);
 	}
 
 	public void draw() {
@@ -243,8 +243,7 @@ public class EventPanel extends JScrollPane implements MouseListener,ActionListe
 		if (mover != null) {
 			movePanel(mover, arg0.getPoint());
 		}
-		mainWindow.setVisible(false);
-		mainWindow.setVisible(true);
+		refresh();
 	}
 
 	public void actionPerformed(ActionEvent event) {
@@ -283,10 +282,6 @@ public class EventPanel extends JScrollPane implements MouseListener,ActionListe
 		for (int i = 0; i < eventPanels.size(); i++) {
 			panel.add(eventPanels.get(i));
 		}
-//		if(eventPanels.size()<21){
-//			panel.add(Box.createRigidArea(new Dimension(0,800-eventPanels.size()*40)));
-//		}
-		
 		mainWindow.setVisible(false);
 		mainWindow.setVisible(true);
 	}
